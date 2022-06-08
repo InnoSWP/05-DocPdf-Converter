@@ -18,6 +18,7 @@ from django.urls import path
 from django.urls import path, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from main import api
 
 
 # Serializers define the API representation.
@@ -38,4 +39,5 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('convert/', api.ConvertApi.as_view()),
 ]
