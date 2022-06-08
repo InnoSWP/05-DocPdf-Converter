@@ -5,4 +5,7 @@ from main.models import *
 class ConvertSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Converter
-        fields = ['files']
+        fields = [
+            'token',
+            'files',
+        ]

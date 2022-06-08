@@ -8,5 +8,8 @@ class Upload(models.Model):
 
 
 class Converter(models.Model):
-    files = models.FileField()
-    upload = models.ForeignKey(Upload, related_name="files", on_delete=models.CASCADE)
+    token = models.TextField(max_length=36, help_text="Enter your token.")
+    files = models.FileField(help_text="Add files that you want to convert.")
+    upload = models.ForeignKey(Upload, related_name="files",
+                               on_delete=models.CASCADE)
+
