@@ -17,7 +17,14 @@ class ConvertApi(generics.GenericAPIView):
     def post(self, request, *args,  **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        if 'token' in request.data:
+        if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
+            if 'files' in request.data and not len(request.data['files']):
+                return Response(
+                    {
+                        "error": "invalid_files",
+                        "error_description": "Files field is empty.",
+                    }, status=status.HTTP_400_BAD_REQUEST
+                )
             files = request.FILES.getlist('files')
             conversion = Conversion()
             conversion.save()

@@ -6,6 +6,5 @@ class ConvertSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Converter
         fields = [
-            'token',
             'files',
         ]
