@@ -1,9 +1,11 @@
+import os
 import shutil
 
-from rest_framework import generics, permissions, mixins, settings, status
+from django.http import HttpResponse
+from rest_framework import generics, status
 from rest_framework.response import Response
 from os import makedirs, path
-from .algorithm import convert
+from .algorithm import convert, zip_files_in_dir
 from .models import Converter, Conversion
 from .serializers import ConvertSerializer
 
@@ -28,9 +30,13 @@ class ConvertApi(generics.GenericAPIView):
                     shutil.copyfileobj(file, out_file)
             file_names = [file.name for file in files]
             convert([f'{filepath}{file_name}' for file_name in file_names])
-            return Response({
-                "files": f'{[file_name for file_name in file_names]}'
-            })
+            zip_files_in_dir(filepath, file_names, "sample.zip")
+            zip_file = open(f'{filepath}sample.zip', 'rb')
+            response = HttpResponse(zip_file, content_type='application/zip')
+            response['files'] = 'attachment; filename=sample.zip'
+            zip_file.close()
+            shutil.rmtree(filepath)
+            return response
         else:
             return Response({
                 "error": "invalid_token",
