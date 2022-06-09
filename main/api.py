@@ -1,6 +1,4 @@
-import os
 import shutil
-
 from django.http import HttpResponse
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -14,7 +12,7 @@ class ConvertApi(generics.GenericAPIView):
     serializer_class = ConvertSerializer
     queryset = Converter.objects.all()
 
-    def post(self, request, *args,  **kwargs):
+    def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
@@ -36,13 +34,15 @@ class ConvertApi(generics.GenericAPIView):
                 with open(filename, 'wb') as out_file:
                     shutil.copyfileobj(file, out_file)
             file_names = [file.name for file in files]
-            convert(filepath, files, last_id)
-            zip_files_in_dir(filepath, file_names, "sample.zip")
-            zip_file = open(f'{filepath}sample.zip', 'rb')
+            converted_file_path = convert(filepath, file_names, last_id)
+            zip_name = f'result_{last_id}.zip'
+            zip_files_in_dir(converted_file_path, file_names, zip_name)
+            zip_file = open(f'{converted_file_path}{zip_name}', 'rb')
             response = HttpResponse(zip_file, content_type='application/zip')
             response['files'] = 'attachment; filename=sample.zip'
             zip_file.close()
             shutil.rmtree(filepath)
+            shutil.rmtree(converted_file_path)
             return response
         else:
             return Response({
