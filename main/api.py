@@ -36,7 +36,7 @@ class ConvertApi(generics.GenericAPIView):
                 with open(filename, 'wb') as out_file:
                     shutil.copyfileobj(file, out_file)
             file_names = [file.name for file in files]
-            convert([f'{filepath}{file_name}' for file_name in file_names])
+            convert(filepath, files, last_id)
             zip_files_in_dir(filepath, file_names, "sample.zip")
             zip_file = open(f'{filepath}sample.zip', 'rb')
             response = HttpResponse(zip_file, content_type='application/zip')
