@@ -1,6 +1,8 @@
 import shutil
 from rest_framework import generics, permissions, mixins, settings, status
 from rest_framework.response import Response
+
+from .algorithm import convert
 from .models import Converter
 from .serializers import ConvertSerializer
 
@@ -18,7 +20,7 @@ class ConvertApi(generics.GenericAPIView):
                 with open(file.name, 'wb') as out_file:
                     shutil.copyfileobj(file, out_file)
             return Response({
-                "files": f'{files}'
+                "files": f'{convert(files)}'
             })
         else:
             return Response({
