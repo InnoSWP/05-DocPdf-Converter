@@ -17,26 +17,7 @@ def convert(filepath: str, files: [str], index):
     if platform == "linux" or platform == "linux2":
         return convert_linux(filepath, files, index)
     elif platform == "win32":
-        convert_windows(filepath, files, index)
-
-
-def windows(paths):
-    import win32com.client
-    word = win32com.client.Dispatch("Word.Application")
-    wd_format_pdf = 17
-
-    if paths["batch"]:
-        for docx_filepath in sorted(Path(paths["input"]).glob("*.docx")):
-            pdf_filepath = Path(paths["output"]) / (str(docx_filepath.stem) + ".pdf")
-            doc = word.Documents.Open(str(docx_filepath))
-            doc.SaveAs(str(pdf_filepath), FileFormat=wd_format_pdf)
-            doc.Close(0)
-    else:
-        docx_filepath = Path(paths["input"]).resolve()
-        pdf_filepath = Path(paths["output"]).resolve()
-        doc = word.Documents.Open(str(docx_filepath))
-        doc.SaveAs(str(pdf_filepath), FileFormat=wd_format_pdf)
-        doc.Close(0)
+        return convert_windows(filepath, files, index)
 
 
 def convert_windows(filepath: str, files: [str], index: int):
@@ -47,6 +28,28 @@ def convert_windows(filepath: str, files: [str], index: int):
     makedirs(converted_file_path, exist_ok=True)
     paths = resolve_paths(filepath, converted_file_path)
     windows(paths)
+    return converted_file_path
+
+
+def windows(paths):
+    import win32com.client
+    from servicemanager import CoInitializeEx
+    CoInitializeEx(0)
+    word = win32com.client.Dispatch("Word.Application")
+    wd_format_pdf = 17
+
+    if paths["batch"]:
+        for docx_filepath in Path(paths["input"]).glob("*.docx"):
+            pdf_filepath = Path(paths["output"]) / f'{docx_filepath.stem}.pdf'
+            doc = word.Documents.Open(str(docx_filepath))
+            doc.SaveAs(str(pdf_filepath), FileFormat=wd_format_pdf)
+            doc.Close(0)
+    else:
+        docx_filepath = Path(paths["input"]).resolve()
+        pdf_filepath = Path(paths["output"]).resolve()
+        doc = word.Documents.Open(str(docx_filepath))
+        doc.SaveAs(str(pdf_filepath), FileFormat=wd_format_pdf)
+        doc.Close(0)
 
 
 def convert_linux(filepath: str, files: [str], index: int):
