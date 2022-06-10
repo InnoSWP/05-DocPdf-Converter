@@ -1,5 +1,10 @@
-from django.shortcuts import render
+from rest_framework import generics, status
+from rest_framework.response import Response
 
 
-def index(request):
-    return render(request, 'main/index.html')
+class IndexView(generics.GenericAPIView):
+
+    def get(self, request, *args, **kwargs):
+        return Response({
+            "converter": f'http://{request.META["HTTP_HOST"]}/convert',
+        }, status=status.HTTP_200_OK)

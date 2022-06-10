@@ -1,5 +1,6 @@
 import shutil
 from django.http import HttpResponse
+from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
 from os import makedirs, path
@@ -50,6 +51,12 @@ class ConvertApi(generics.GenericAPIView):
                 "error": "invalid_token",
                 "error_description": "Your request is not authentificated.",
             }, status=status.HTTP_401_UNAUTHORIZED)
+
+    def get(self, request, *args, **kwargs):
+        if self.request_from_local(request):
+            serializer_class = ConvertSerializer
+            queryset = Converter.objects.all()
+            return render(request, "main/index.html", {})
 
     @staticmethod
     def get_request_from(request) -> str:

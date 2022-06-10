@@ -14,11 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
 from django.urls import path, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
-from main import api
+from main import api, views
 
 
 # Serializers define the API representation.
@@ -34,11 +33,8 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-router = routers.DefaultRouter()
-
 urlpatterns = [
-    path('', include("main.urls")),
-    path('api/', include(router.urls)),
+    path('', views.IndexView.as_view()),
     path('admin/', admin.site.urls),
     path('convert/', api.ConvertApi.as_view()),
 ]
