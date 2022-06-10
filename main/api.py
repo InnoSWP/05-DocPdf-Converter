@@ -16,8 +16,8 @@ class ConvertApi(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         if True:
-        #if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
-            if 'files' in request.data and not len(request.data['files']):
+            # if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
+            if 'files' in request.data and not len(request.FILES['files']) or 'files' not in request.data:
                 return Response(
                     {
                         "error": "invalid_files",
@@ -50,4 +50,3 @@ class ConvertApi(generics.GenericAPIView):
                 "error": "invalid_token",
                 "error_description": "Your request is not authentificated.",
             }, status=status.HTTP_401_UNAUTHORIZED)
-
