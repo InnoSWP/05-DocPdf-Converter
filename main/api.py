@@ -17,7 +17,7 @@ class ConvertApi(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
+        if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']) or ConvertApi.request_from_local(request):
             if 'files' in request.data and not len(request.data['files']):
                 return Response(
                     {
@@ -52,3 +52,15 @@ class ConvertApi(generics.GenericAPIView):
                 "error_description": "Your request is not authentificated.",
             }, status=status.HTTP_401_UNAUTHORIZED)
 
+    @staticmethod
+    def get_request_from(request) -> str:
+        ip = request.META.get('HTTP_X_FORWARDED_FOR')
+
+        if not ip:
+            ip = request.META.get('REMOTE_ADDR')
+
+        return ip
+
+    @staticmethod
+    def request_from_local(request) -> bool:
+        return True if ConvertApi.get_request_from(request) == '127.0.0.1' else False

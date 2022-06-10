@@ -37,7 +37,8 @@ class UserViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', include("main.urls")),
+    path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('convert/', api.ConvertApi.as_view()),
 ]
