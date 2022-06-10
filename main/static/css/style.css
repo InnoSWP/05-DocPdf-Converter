@@ -1,0 +1,84 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.doc-color {
+  color: #1C45AE;
+}
+
+.pdf-color {
+  color: #FD6853;
+}
+
+.doc-bg-color {
+  background-color: #1C45AE;
+}
+
+.pdf-bg-color {
+  background-color: #FD6853;
+}
+
+.main-outer {
+  height: 800px;
+  width: 100%;
+}
+
+.main {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+
+  text-align: center;
+}
+
+.page-title {
+  font-size: 96px;
+  line-height: 131px;
+  color: #FFFFFF;
+}
+
+.page-description {
+  font-size: 50px;
+  line-height: 68px;
+  color: #FFFFFF;
+  text-align: center;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+button, label {
+  font-size: 40px;
+  line-height: 54px;
+  padding: 5px 10px 5px 10px;
+
+  color: #FFFFFF;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.choose-files-button {
+  background: #1C45AE;
+  box-shadow: inset -3px -3px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: none;
+}
+
+.choose-files-button:active {
+  background: #16337D;
+}
+
+.convert-button {
+  background: #FD6853;
+  box-shadow: inset -3px -3px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: none;
+}
+
+.convert-button:active {
+  background: #E4604E;
+}

@@ -50,3 +50,16 @@ class ConvertApi(generics.GenericAPIView):
                 "error": "invalid_token",
                 "error_description": "Your request is not authentificated.",
             }, status=status.HTTP_401_UNAUTHORIZED)
+
+    @staticmethod
+    def get_request_from(request) -> str:
+        ip = request.META.get('HTTP_X_FORWARDED_FOR')
+
+        if not ip:
+            ip = request.META.get('REMOTE_ADDR')
+
+        return ip
+
+    @staticmethod
+    def request_from_local(request) -> bool:
+        return True if ConvertApi.get_request_from(request) == '127.0.0.1' else False
