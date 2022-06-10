@@ -1,6 +1,4 @@
 import shutil
-import time
-
 from django.http import HttpResponse
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -17,7 +15,8 @@ class ConvertApi(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
+        if True:
+        #if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
             if 'files' in request.data and not len(request.data['files']):
                 return Response(
                     {
