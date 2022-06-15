@@ -57,7 +57,7 @@ button, label {
   color: #FFFFFF;
 }
 
-button:hover {
+button:hover, label:hover {
   cursor: pointer;
 }
 
