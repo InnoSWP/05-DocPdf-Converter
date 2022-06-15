@@ -13,15 +13,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 
     <title>Doc2PDF</title>
+
 </head>
 <body style="background-image: url({% static 'img/background.png' %}); background-size: cover; background-repeat: no-repeat;">
-    <div class="main-outer">
+    <div id="processing" class="processing" style="opacity: 0; z-index: -10000;">
+        <div class="processing-content">
+            <p>PROCESSING<span class="processing-animation">...</span></p>
+        </div>
+    </div>
+
+    <div id="main-outer" class="main-outer">
         <div class="main" align="center">
             <div class="page-title">CONVERT <span class="doc-color">DOC</span> TO <span class="pdf-color">PDF</span></div>
             <hr width="35%" size="2" color="#fff" />
             <p class="page-description description-1">IT'S SO EASY! JUST</p>
 
-            <form method="POST" enctype="multipart/form-data" action="/convert/">
+            <form id="convert-files-form" method="POST" enctype="multipart/form-data" action="/convert/">
                 {% csrf_token %}
 
                 <label for="files" class="doc-bg-color choose-files-button">CHOOSE FILES</label>
@@ -29,9 +36,53 @@
                 <input id="files" style="visibility: hidden;" type="file" accept=".docx" name="files" multiple>
 
                 <p class="page-description description-2">AND</p>
-                <button class="pdf-bg-color convert-button">CONVERT!</button>
+                <button type="submit" class="pdf-bg-color convert-button">CONVERT!</button>
             </form>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        $('#convert-files-form').submit(function (e) {
+            e.preventDefault();
+
+
+            let form = $(this);
+            let url = form.attr('action');
+            let data = new FormData(this);
+
+            let main_outer = $('#main-outer');
+            let processing = $('#processing');
+
+            main_outer.css('filter', 'blur(8px)');
+            processing.css('opacity', 1);
+            processing.css('z-index', 10000);
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                processData: false,
+                cache: false,
+                contentType: false,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function(data) {
+                    let link = document.createElement('a'),
+                    filename = 'converted.zip';
+
+                    link.href = URL.createObjectURL(data);
+                    link.download = filename;
+                    link.click();
+
+                    main_outer.css('filter', 'none');
+                    processing.css('opacity', 0);
+                    processing.css('z-index', -10000);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

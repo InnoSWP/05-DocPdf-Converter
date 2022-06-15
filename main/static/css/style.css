@@ -19,7 +19,7 @@
 }
 
 .main-outer {
-  height: 800px;
+  height: calc(100vh - 50px);
   width: 100%;
 }
 
@@ -81,4 +81,43 @@ button:hover, label:hover {
 
 .convert-button:active {
   background: #E4604E;
+}
+
+.processing {
+  width: 100%;
+  left: 0;
+  min-height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  opacity: 0;
+  z-index: -10000;
+  transition: opacity .2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.processing-content {
+  height: 100vh;
+  position: relative
+}
+
+.processing-content p {
+  color: #fff;
+  font-size: 72px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 -50% 0 0;
+  transform: translate(-50%, -50%)
+}
+
+.processing-animation {
+  clip-path: inset(0 67px 0 0);
+  animation: l 1s steps(4) infinite;
+}
+
+@keyframes l {
+  to {
+    clip-path: inset(0 -1ch 0 0)
+  }
 }
