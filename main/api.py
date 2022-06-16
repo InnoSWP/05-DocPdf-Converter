@@ -1,14 +1,13 @@
 import shutil
-from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
-from os import makedirs, path
-from .algorithm import convert, zip_files_in_dir
+from .algorithm import convert, zip_files_in_dir, save_files, get_file_response
 from .models import Converter, Conversion
 from .serializers import ConvertSerializer
 
 
+# Main class for Convertor API.
 class ConvertApi(generics.GenericAPIView):
     serializer_class = ConvertSerializer
     queryset = Converter.objects.all()
@@ -26,36 +25,49 @@ class ConvertApi(generics.GenericAPIView):
                     }, status=status.HTTP_400_BAD_REQUEST
                 )
             files = request.FILES.getlist('files')
-            conversion = Conversion()
-            conversion.save()
+            Conversion().save()
+            # Get this conversion operation id.
             last_id = Conversion.objects.latest('id').id
-            filepath = f'{path.dirname(__file__)}/files/{last_id}/'
+            acceptable_types = ["docx"]
+            # Save files and get the path to them.
+            file_path = save_files(files, last_id)
+            # Save all filenames from request.
+            file_names = []
+            # Iterate through files to get file names .
             for file in files:
-                makedirs(filepath, exist_ok=True)
-                filename = f'{filepath}{file.name}'
-                with open(filename, 'wb') as out_file:
-                    shutil.copyfileobj(file, out_file)
-            file_names = [file.name for file in files]
-            converted_file_path = convert(filepath, file_names, last_id)
+                # Current file name.
+                file_name = file.name
+                # Save acceptable file names.
+                # If one of the files is not acceptable, return 400 status response.
+                if any(acceptable_type in file_name for acceptable_type in acceptable_types):
+                    file_names.append(file_name)
+                else:
+                    return Response({
+                        "error": "invalid_file_type",
+                        "error_description": "Your request has unacceptable files.",
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            # Convert files and get the path to result.
+            converted_file_path = convert(file_path, file_names, last_id)
+            # Name of the zip with a result of conversion.
             zip_name = f'result_{last_id}.zip'
+            # Save all filenames from the request.
             zip_files_in_dir(converted_file_path, file_names, zip_name)
-            zip_file = open(f'{converted_file_path}{zip_name}', 'rb')
-            response = HttpResponse(zip_file, content_type='application/zip')
-            response['files'] = 'attachment; filename=sample.zip'
-            zip_file.close()
-            shutil.rmtree(filepath)
+            # Get formatted response for file.
+            response = get_file_response(converted_file_path, zip_name)
+            # Remove all unnecessary directories.
+            shutil.rmtree(file_path)
             shutil.rmtree(converted_file_path)
             return response
         else:
+            # Return response if user not authenticated.
             return Response({
                 "error": "invalid_token",
-                "error_description": "Your request is not authentificated.",
+                "error_description": "Your request is not authenticated.",
             }, status=status.HTTP_401_UNAUTHORIZED)
 
+    # Get main page view.
     def get(self, request, *args, **kwargs):
         if self.request_from_local(request):
-            serializer_class = ConvertSerializer
-            queryset = Converter.objects.all()
             return render(request, "main/index.html", {})
 
     @staticmethod

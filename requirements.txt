@@ -2,4 +2,4 @@ Django==4.0.5
 djangorestframework==3.13.1
 pywin32
 docx2pdf
-requests
+requests~=2.28.0
