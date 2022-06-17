@@ -7,12 +7,26 @@ from .models import Converter, Conversion
 from .serializers import ConvertSerializer
 
 
-# Main class for Convertor API.
 class ConvertApi(generics.GenericAPIView):
+    """
+    Main class for Convertor API.
+
+    :param serializer_class: serializer of  :class:`models.Conversion`
+    :param queryset: set of serialized objects
+    """
     serializer_class = ConvertSerializer
     queryset = Converter.objects.all()
 
     def post(self, request, *args, **kwargs):
+        """
+        Post request handler for file conversion.
+
+        :param request: request details
+        :type request: :class:`django.http.HttpRequest`
+        :var serializer: formed with :class:`models.Conversion`
+        :return: server response object
+        :rtype: :class:`rest_framework.response.Response`
+        """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         if True:
@@ -65,13 +79,28 @@ class ConvertApi(generics.GenericAPIView):
                 "error_description": "Your request is not authenticated.",
             }, status=status.HTTP_401_UNAUTHORIZED)
 
-    # Get main page view.
     def get(self, request, *args, **kwargs):
+        """
+        Get request handler for showing conversion page view.
+
+        :param request: request details
+        :type request: :class:`django.http.HttpRequest`
+        :return: page render object :class:`index.html`
+        :rtype: :class:`django.http.HttpResponse`
+        """
         if self.request_from_local(request):
             return render(request, "main/index.html", {})
 
     @staticmethod
     def get_request_from(request) -> str:
+        """
+        Static method to get request ip address
+
+        :param request: request details
+        :type request: :class:`django.http.HttpRequest`
+        :return: ip address
+        :rtype: :class:`string`
+        """
         ip = request.META.get('HTTP_X_FORWARDED_FOR')
 
         if not ip:
@@ -81,4 +110,13 @@ class ConvertApi(generics.GenericAPIView):
 
     @staticmethod
     def request_from_local(request) -> bool:
+        """
+        Static method to check whether it is local
+        request or not
+
+        :param request: request details
+        :type request: :class:`django.http.HttpRequest`
+        :return: boolean flag
+        :rtype: :class:`boolean`
+        """
         return True if ConvertApi.get_request_from(request) == '127.0.0.1' else False

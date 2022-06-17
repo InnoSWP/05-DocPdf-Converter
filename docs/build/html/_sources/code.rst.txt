@@ -1,0 +1,11 @@
+API documentation
+=================
+
+*******************
+API request handler
+*******************
+
+.. automodule:: main.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
