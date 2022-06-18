@@ -63,6 +63,6 @@ def convert_linux(filepath: str, files: [str], index: int):
 
         #changed the convertion way
 
-        cmd += f' && doc2pdf {file}'
+        cmd += f' && unoconv -f pdf {file}'
     subprocess.call(cmd, shell=True)
     return converted_file_path
