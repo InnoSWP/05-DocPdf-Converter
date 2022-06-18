@@ -69,9 +69,9 @@
                 xhrFields: {
                     responseType: 'blob'
                 },
-                success: function(data) {
+                success: function(data, status, xhr) {
                     let link = document.createElement('a'),
-                    filename = 'converted.zip';
+                    filename = xhr.getResponseHeader('files').replace('attachment; filename=', '');
 
                     link.href = URL.createObjectURL(data);
                     link.download = filename;
