@@ -53,9 +53,16 @@ def convert_linux(filepath: str, files: [str], index: int):
     if not len(files):
         return []
     converted_file_path = f'{path.dirname(__file__)}/converted_files/{index}/'
-    cmd = f'cd {filepath}'
+    
+    # Added installing the needed package(if not installed yet) or checking for and installing updates(if avaiable))
+
+    cmd = f'cd {filepath} && sudo apt-get install unoconv'
     makedirs(converted_file_path, exist_ok=True)
     for file in files:
-        cmd += f' && lowriter --convert-to pdf {file} --outdir {converted_file_path}'
-    subprocess.call(cmd, shell=True)
+        #cmd += f' && lowriter --convert-to pdf {file} --outdir {converted_file_path}'
+
+        #changed the convertion way
+
+        cmd += f' && doc2pdf {file}'
+        subprocess.call(cmd, shell=True)
     return converted_file_path
