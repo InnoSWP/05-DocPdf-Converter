@@ -9,6 +9,7 @@ class ConvertSerializer(serializers.HyperlinkedModelSerializer):
 
     Meta: class with metadata
     """
+
     class Meta:
         """
         Metadata
@@ -18,7 +19,8 @@ class ConvertSerializer(serializers.HyperlinkedModelSerializer):
         fields: serializer fields
         :type fields: :class:`list of strings`
         """
+
         model = Converter
         fields = [
-            'files',
+            "files",
         ]
