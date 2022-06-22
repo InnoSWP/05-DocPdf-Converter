@@ -1,12 +1,13 @@
-from os import makedirs, path, rename
-from pathlib import Path
-from zipfile import ZipFile
-from sys import platform
 import subprocess
-from os.path import basename
-from shutil import copyfileobj, copyfile
-from django.http import HttpResponse
 from mimetypes import MimeTypes
+from os import makedirs, path, rename
+from os.path import basename
+from pathlib import Path
+from shutil import copyfileobj
+from sys import platform
+from zipfile import ZipFile
+
+from django.http import HttpResponse
 
 
 def save_files(files, last_id: int):
@@ -21,23 +22,25 @@ def save_files(files, last_id: int):
     """
 
     # File path to saving files.
-    file_path = f'{path.dirname(__file__)}/files/{last_id}/'
+    file_path = f"{path.dirname(__file__)}/files/{last_id}/"
     converted_file_path = get_converted_file_path(last_id)
     makedirs(converted_file_path, exist_ok=True)
     # Allocate new directory if it doesn't exist.
     makedirs(file_path, exist_ok=True)
     # Save each file to file_path directory.
+    files_to_convert = []
     for file in files:
         if ".pdf" not in file.name:
-            filename = f'{file_path}{file.name}'
+            files_to_convert.append(file.name)
+            filename = f"{file_path}{file.name}"
         else:
-            filename = f'{converted_file_path}{file.name}'
-        with open(filename, 'wb') as out_file:
+            filename = f"{converted_file_path}{file.name}"
+        with open(filename, "wb") as out_file:
             copyfileobj(file, out_file)
-    return file_path
+    return file_path, files_to_convert
 
 
-def zip_files_in_dir(filepath: str, files: [str], zip_file_name: str):
+def zip_files_in_dir(filepath: str, files: list[str], zip_file_name: str):
     """
     Zip all files in given directory.
 
@@ -51,9 +54,12 @@ def zip_files_in_dir(filepath: str, files: [str], zip_file_name: str):
     :rtype string
     """
     if len(files) == 1:
-        rename(f'{filepath}{files[0].rsplit(".", 1)[0]}.pdf', f'{filepath}{zip_file_name}.pdf')
+        rename(
+            f'{filepath}{files[0].rsplit(".", 1)[0]}.pdf',
+            f"{filepath}{zip_file_name}.pdf",
+        )
         return ".pdf"
-    with ZipFile(f'{filepath}{zip_file_name}.zip', 'w') as zipObj:
+    with ZipFile(f"{filepath}{zip_file_name}.zip", "w") as zipObj:
         for file in files:
             file_full_name = f'{filepath}{file.rsplit(".", 1)[0]}.pdf'
             zipObj.write(file_full_name, basename(file_full_name))
@@ -72,24 +78,15 @@ def get_file_response(file_path: str, file_name: str):
     :rtype: :class:`django.http.response.HttpResponse`
     """
 
-    with open(f'{file_path}{file_name}', 'rb') as file:
-        response = HttpResponse(file, content_type=f'{MimeTypes().guess_type(file_name)}')
-    response['files'] = f'attachment; filename={file_name}'
+    with open(f"{file_path}{file_name}", "rb") as file:
+        response = HttpResponse(
+            file, content_type=f"{MimeTypes().guess_type(file_name)}"
+        )
+    response["files"] = f"attachment; filename={file_name}"
     return response
 
 
-def sieve(file_names: [str], index: int):
-    convert_files = []
-    pdf_files = []
-    for file in file_names:
-        if ".pdf" not in file:
-            convert_files.append(file)
-        else:
-            pdf_files.append(file)
-    return convert_files
-
-
-def convert(filepath: str, files: [str], index):
+def convert(filepath: str, files: list[str], index):
     """
     Conversion operator that determines the OS, calls suitable
     conversion algorithm, and returns path to them.
@@ -111,7 +108,7 @@ def convert(filepath: str, files: [str], index):
     return converted_file_path
 
 
-def convert_windows(filepath: str, files: [str], converted_file_path: str):
+def convert_windows(filepath: str, files: list[str], converted_file_path: str):
     """
     Windows conversion core.
 
@@ -126,13 +123,16 @@ def convert_windows(filepath: str, files: [str], converted_file_path: str):
     """
 
     from docx2pdf import resolve_paths
+
     if not len(files):
         return []
     paths = resolve_paths(filepath, converted_file_path)
     windows(paths)
 
 
-def windows_convert_docx(word, docx_filepath: Path, pdf_filepath: Path, pdf_format: int):
+def windows_convert_docx(
+    word, docx_filepath: Path, pdf_filepath: Path, pdf_format: int
+):
     """
     Windows conversion docx part.
 
@@ -153,6 +153,7 @@ def windows_convert_docx(word, docx_filepath: Path, pdf_filepath: Path, pdf_form
 def windows(paths):
     import win32com.client as w32c
     from servicemanager import CoInitializeEx
+
     """
     Conversion algorithm for Windows OS.
 
@@ -168,7 +169,7 @@ def windows(paths):
     if paths["batch"]:
         # Convert each file via word application.
         for docx_filepath in Path(paths["input"]).glob("*.docx"):
-            pdf_filepath = Path(paths["output"]) / f'{docx_filepath.stem}.pdf'
+            pdf_filepath = Path(paths["output"]) / f"{docx_filepath.stem}.pdf"
             windows_convert_docx(word, docx_filepath, pdf_filepath, wd_format_pdf)
     else:
         docx_filepath = Path(paths["input"]).resolve()
@@ -188,13 +189,13 @@ def get_converted_file_path(index: int):
     :rtype: str
     """
     # Path to converted files.
-    converted_file_path = f'{path.dirname(__file__)}/converted_files/{index}/'
+    converted_file_path = f"{path.dirname(__file__)}/converted_files/{index}/"
     # Make this directory if it doesn't exist.
     makedirs(converted_file_path, exist_ok=True)
     return converted_file_path
 
 
-def convert_linux(filepath: str, files: [str], converted_file_path: str):
+def convert_linux(filepath: str, files: list[str], converted_file_path: str):
     """
     Conversion algorithm for Linux-like OS.
 
@@ -209,10 +210,10 @@ def convert_linux(filepath: str, files: [str], converted_file_path: str):
     """
     if not len(files):
         return []
-    cmd = f'cd {filepath}'
+    cmd = f"cd {filepath}"
     # For all files call lowriter for conversion (LibreOffice).
     for file in files:
-        cmd += f' && lowriter --convert-to pdf {file} --outdir {converted_file_path}'
+        cmd += f" && lowriter --convert-to pdf {file} --outdir {converted_file_path}"
     # Execute all console commands.
     subprocess.call(cmd, shell=True)
     return converted_file_path
