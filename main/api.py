@@ -2,7 +2,7 @@ import shutil
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .algorithm import convert, zip_files_in_dir, save_files, get_file_response
+from .algorithm import convert, zip_files_in_dir, save_files, get_file_response, sieve
 from .models import Converter, Conversion
 from .serializers import ConvertSerializer
 
@@ -42,7 +42,7 @@ class ConvertApi(generics.GenericAPIView):
             Conversion().save()
             # Get this conversion operation id.
             last_id = Conversion.objects.latest('id').id
-            acceptable_types = ["docx"]
+            acceptable_types = ["docx", "pdf"]
             # Save files and get the path to them.
             file_path = save_files(files, last_id)
             # Save all filenames from request.
@@ -56,18 +56,19 @@ class ConvertApi(generics.GenericAPIView):
                 if any(acceptable_type in file_name for acceptable_type in acceptable_types):
                     file_names.append(file_name)
                 else:
+                    shutil.rmtree(file_path)
                     return Response({
                         "error": "invalid_file_type",
                         "error_description": "Your request has unacceptable files.",
                     }, status=status.HTTP_400_BAD_REQUEST)
             # Convert files and get the path to result.
-            converted_file_path = convert(file_path, file_names, last_id)
+            convert_files_names = sieve(file_names, last_id)
+            converted_file_path = convert(file_path, convert_files_names, last_id)
             # Name of the zip with a result of conversion.
-            zip_name = f'result_{last_id}.zip'
+            zip_name = f'result_{last_id}'
             # Save all filenames from the request.
-            zip_files_in_dir(converted_file_path, file_names, zip_name)
             # Get formatted response for file.
-            response = get_file_response(converted_file_path, zip_name)
+            response = get_file_response(converted_file_path, f'{zip_name}{zip_files_in_dir(converted_file_path, file_names, zip_name)}')
             # Remove all unnecessary directories.
             shutil.rmtree(file_path)
             shutil.rmtree(converted_file_path)
