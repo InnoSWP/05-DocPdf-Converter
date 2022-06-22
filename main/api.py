@@ -22,22 +22,22 @@ class ConvertApi(generics.GenericAPIView):
         Post request handler for file conversion.
 
         :param request: request details
-        :type request: :class:`django.http.HttpRequest`
+        :type request: :class:`rest_framework.request.Request`
         :var serializer: formed with :class:`models.Conversion`
         :return: server response object
         :rtype: :class:`rest_framework.response.Response`
         """
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
         if True:
             # if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
-            if 'files' in request.data and not len(request.FILES['files']) or 'files' not in request.data:
+            if 'files' not in request.data or 'files' in request.data and not len(request.data['files']):
                 return Response(
                     {
                         "error": "invalid_files",
                         "error_description": "Files field is empty.",
                     }, status=status.HTTP_400_BAD_REQUEST
                 )
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
             files = request.FILES.getlist('files')
             Conversion().save()
             # Get this conversion operation id.
