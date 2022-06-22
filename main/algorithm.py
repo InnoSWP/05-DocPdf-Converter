@@ -29,12 +29,11 @@ def save_files(files, last_id: int):
     # Save each file to file_path directory.
     files_to_convert = []
     for file in files:
-        file_name = file.name
-        if ".pdf" not in file_name:
-            files_to_convert.append(file_name)
-            filename = f'{file_path}{file_name}'
+        if ".pdf" not in file.name:
+            files_to_convert.append(file.name)
+            filename = f'{file_path}{file.name}'
         else:
-            filename = f'{converted_file_path}{file_name}'
+            filename = f'{converted_file_path}{file.name}'
         with open(filename, 'wb') as out_file:
             copyfileobj(file, out_file)
     return file_path, files_to_convert
