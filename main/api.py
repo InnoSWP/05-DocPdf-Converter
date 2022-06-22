@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
 
-from .algorithm import convert, zip_files_in_dir, save_files, get_file_response
+from .algorithm import save_files, convert, zip_files_in_dir, get_file_response
 from .models import Converter, Conversion
 from .serializers import ConvertSerializer
 
