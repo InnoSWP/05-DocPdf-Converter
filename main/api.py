@@ -31,7 +31,7 @@ class ConvertApi(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         if True:
             # if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
-            if 'files' in request.data and not len(request.FILES['files']) or 'files' not in request.data:
+            if 'files' in request.data and not len(request.FILES) or 'files' not in request.data:
                 return Response(
                     {
                         "error": "invalid_files",
