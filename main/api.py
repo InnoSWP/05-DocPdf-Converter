@@ -2,7 +2,7 @@ import shutil
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .algorithm import convert, zip_files_in_dir, save_files, get_file_response, sieve
+from .algorithm import convert, zip_files_in_dir, save_files, get_file_response
 from .models import Converter, Conversion
 from .serializers import ConvertSerializer
 
@@ -44,7 +44,7 @@ class ConvertApi(generics.GenericAPIView):
             last_id = Conversion.objects.latest('id').id
             acceptable_types = ["docx", "pdf"]
             # Save files and get the path to them.
-            file_path = save_files(files, last_id)
+            file_path, files_to_convert = save_files(files, last_id)
             # Save all filenames from request.
             file_names = []
             # Iterate through files to get file names .
@@ -62,8 +62,7 @@ class ConvertApi(generics.GenericAPIView):
                         "error_description": "Your request has unacceptable files.",
                     }, status=status.HTTP_400_BAD_REQUEST)
             # Convert files and get the path to result.
-            convert_files_names = sieve(file_names, last_id)
-            converted_file_path = convert(file_path, convert_files_names, last_id)
+            converted_file_path = convert(file_path, files_to_convert, last_id)
             # Name of the zip with a result of conversion.
             zip_name = f'result_{last_id}'
             # Save all filenames from the request.

@@ -27,14 +27,17 @@ def save_files(files, last_id: int):
     # Allocate new directory if it doesn't exist.
     makedirs(file_path, exist_ok=True)
     # Save each file to file_path directory.
+    files_to_convert = []
     for file in files:
-        if ".pdf" not in file.name:
-            filename = f'{file_path}{file.name}'
+        file_name = file.name
+        if ".pdf" not in file_name:
+            files_to_convert.append(file_name)
+            filename = f'{file_path}{file_name}'
         else:
-            filename = f'{converted_file_path}{file.name}'
+            filename = f'{converted_file_path}{file_name}'
         with open(filename, 'wb') as out_file:
             copyfileobj(file, out_file)
-    return file_path
+    return file_path, files_to_convert
 
 
 def zip_files_in_dir(filepath: str, files: [str], zip_file_name: str):
@@ -76,17 +79,6 @@ def get_file_response(file_path: str, file_name: str):
         response = HttpResponse(file, content_type=f'{MimeTypes().guess_type(file_name)}')
     response['files'] = f'attachment; filename={file_name}'
     return response
-
-
-def sieve(file_names: [str], index: int):
-    convert_files = []
-    pdf_files = []
-    for file in file_names:
-        if ".pdf" not in file:
-            convert_files.append(file)
-        else:
-            pdf_files.append(file)
-    return convert_files
 
 
 def convert(filepath: str, files: [str], index):
