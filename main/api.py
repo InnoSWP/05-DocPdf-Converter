@@ -1,7 +1,9 @@
 import shutil
+
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
+
 from .algorithm import convert, zip_files_in_dir, save_files, get_file_response
 from .models import Converter, Conversion
 from .serializers import ConvertSerializer
@@ -67,7 +69,8 @@ class ConvertApi(generics.GenericAPIView):
             zip_name = f'result_{last_id}'
             # Save all filenames from the request.
             # Get formatted response for file.
-            response = get_file_response(converted_file_path, f'{zip_name}{zip_files_in_dir(converted_file_path, file_names, zip_name)}')
+            response = get_file_response(converted_file_path,
+                                         f'{zip_name}{zip_files_in_dir(converted_file_path, file_names, zip_name)}')
             # Remove all unnecessary directories.
             shutil.rmtree(file_path)
             shutil.rmtree(converted_file_path)

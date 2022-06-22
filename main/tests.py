@@ -1,12 +1,12 @@
 import glob
+import io
 import os
 import time
+import zipfile
+from mimetypes import MimeTypes
 
 import requests as requests
-import io
-import zipfile
 from rest_framework import status
-from mimetypes import MimeTypes
 
 
 def main():
