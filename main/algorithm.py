@@ -131,7 +131,7 @@ def convert_windows(filepath: str, files: list[str], converted_file_path: str):
 
 
 def windows_convert_docx(
-    word, docx_filepath: Path, pdf_filepath: Path, pdf_format: int
+        word, docx_filepath: Path, pdf_filepath: Path, pdf_format: int
 ):
     """
     Windows conversion docx part.

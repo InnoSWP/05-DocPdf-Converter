@@ -16,89 +16,90 @@
 
 </head>
 <body style="background-image: url({% static 'img/background.png' %}); background-size: cover; background-repeat: no-repeat;">
-    <div id="processing" class="processing" style="opacity: 0; z-index: -10000;">
-        <div class="processing-content">
-            <p id="processing-message">PROCESSING<span class="processing-animation">...</span></p>
-        </div>
+<div id="processing" class="processing" style="opacity: 0; z-index: -10000;">
+    <div class="processing-content">
+        <p id="processing-message">PROCESSING<span class="processing-animation">...</span></p>
     </div>
+</div>
 
-    <div id="main-outer" class="main-outer">
-        <div class="main">
-            <div class="page-title">CONVERT <span class="doc-color">DOC</span> TO <span class="pdf-color">PDF</span></div>
-            <hr class="line"/>
-            <p class="page-description description-1">IT'S SO EASY! JUST</p>
+<div id="main-outer" class="main-outer">
+    <div class="main">
+        <div class="page-title">CONVERT <span class="doc-color">DOC</span> TO <span class="pdf-color">PDF</span></div>
+        <hr class="line"/>
+        <p class="page-description description-1">IT'S SO EASY! JUST</p>
 
-            <form id="convert-files-form" method="POST" enctype="multipart/form-data" action="/convert/">
-                {% csrf_token %}
+        <form id="convert-files-form" method="POST" enctype="multipart/form-data" action="/convert/">
+            {% csrf_token %}
 
-                <label for="files" class="doc-bg-color choose-files-button">CHOOSE FILES</label>
-                <br>
-                <input id="files" style="visibility: hidden;" type="file" accept=".docx" name="files" multiple>
+            <label for="files" class="doc-bg-color choose-files-button">CHOOSE FILES</label>
+            <br>
+            <input id="files" style="visibility: hidden;" type="file" accept=".docx" name="files" multiple>
 
-                <p class="page-description description-2">AND</p>
-                <button type="submit" class="pdf-bg-color convert-button">CONVERT!</button>
-            </form>
-        </div>
+            <p class="page-description description-2">AND</p>
+            <button type="submit" class="pdf-bg-color convert-button">CONVERT!</button>
+        </form>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-    <script>
-        $('#convert-files-form').submit(function (e) {
-            e.preventDefault();
+<script>
+    $('#convert-files-form').submit(function (e) {
+        e.preventDefault();
 
 
-            const form = $(this);
-            const url = form.attr('action');
-            const data = new FormData(this);
+        const form = $(this);
+        const url = form.attr('action');
+        const data = new FormData(this);
 
-            const main_outer = $('#main-outer');
-            const processing = $('#processing');
+        const main_outer = $('#main-outer');
+        const processing = $('#processing');
 
-            main_outer.css('filter', 'blur(8px)');
-            processing.css('opacity', 1);
-            processing.css('z-index', 10000);
+        main_outer.css('filter', 'blur(8px)');
+        processing.css('opacity', 1);
+        processing.css('z-index', 10000);
 
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: data,
-                processData: false,
-                cache: false,
-                contentType: false,
-                xhrFields: {
-                    responseType: 'blob'
-                },
-                success: function(data, status, xhr) {
-                    let link = document.createElement('a'),
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            processData: false,
+            cache: false,
+            contentType: false,
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (data, status, xhr) {
+                let link = document.createElement('a'),
                     filename = xhr.getResponseHeader('files').replace('attachment; filename=', '');
 
-                    link.href = URL.createObjectURL(data);
-                    link.download = filename;
-                    link.click();
+                link.href = URL.createObjectURL(data);
+                link.download = filename;
+                link.click();
 
+                main_outer.css('filter', 'none');
+                processing.css('opacity', 0);
+                processing.css('z-index', -10000);
+            },
+            error: function (e) {
+                processing.css('background-color', 'rgba(225, 55, 55, 0.9)');
+
+                const processing_message = $('#processing-message');
+
+                processing_message.text('An error has occurred. Try again.');
+
+                setTimeout(function () {
                     main_outer.css('filter', 'none');
                     processing.css('opacity', 0);
                     processing.css('z-index', -10000);
-                },
-                error: function (e) {
-                    processing.css('background-color', 'rgba(225, 55, 55, 0.9)');
 
-                    const processing_message = $('#processing-message');
-
-                    processing_message.text('An error has occurred. Try again.');
-
-                    setTimeout(function() {
-                        main_outer.css('filter', 'none');
-                        processing.css('opacity', 0);
-                        processing.css('z-index', -10000);
-
-                        processing.css('background-color', 'rgba(0, 0, 0, 0.9)');
-                        processing_message.html('PROCESSING<span class="processing-animation">...</span>');
-                    }, 2000);
-                }
-            });
+                    processing.css('background-color', 'rgba(0, 0, 0, 0.9)');
+                    processing_message.html('PROCESSING<span class="processing-animation">...</span>');
+                }, 2000);
+            }
         });
-    </script>
+    });
+</script>
 </body>
 </html>

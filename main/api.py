@@ -33,9 +33,9 @@ class ConvertApi(generics.GenericAPIView):
         if True:
             # if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
             if (
-                "files" not in request.data
-                or "files" in request.data
-                and not len(request.data["files"])
+                    "files" not in request.data
+                    or "files" in request.data
+                    and not len(request.data["files"])
             ):
                 return Response(
                     {
@@ -62,7 +62,7 @@ class ConvertApi(generics.GenericAPIView):
                 # Save acceptable file names.
                 # If one of the files is not acceptable, return 400 status response.
                 if any(
-                    acceptable_type in file_name for acceptable_type in acceptable_types
+                        acceptable_type in file_name for acceptable_type in acceptable_types
                 ):
                     file_names.append(file_name)
                 else:

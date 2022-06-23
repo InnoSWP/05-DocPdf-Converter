@@ -1,9 +1,11 @@
 # Full documentation link:
+
 https://innoswp.github.io/05-DocPdf-Converter/
 
 # 05-DocPdf-Converter
 
 To set up project set your virtual env use commands in this order (Bash):
+
 1. source venv/Scripts/activate
 2. python manage.py migrate
 3. python manage.py makemigrations
@@ -11,6 +13,7 @@ To set up project set your virtual env use commands in this order (Bash):
 
 You also can add server runner to your configs,
 to do that follow this steps (PyCharm):
+
 1. Open configurations editor
 2. Add new configuration
 3. Python

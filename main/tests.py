@@ -24,8 +24,8 @@ def main():
             "POST", url, headers=headers, data=payload, files=files, stream=True
         )
         if (
-            resp.status_code == status.HTTP_400_BAD_REQUEST
-            or resp.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+                resp.status_code == status.HTTP_400_BAD_REQUEST
+                or resp.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
         ):
             print(resp.text)
             return
