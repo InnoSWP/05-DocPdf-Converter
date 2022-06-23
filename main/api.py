@@ -5,7 +5,7 @@ from rest_framework import generics, status
 from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 
-from .algorithm import save_files, convert, zip_files_in_dir, get_file_response
+from .algorithm import convert, get_file_response, save_files, zip_files_in_dir
 from .models import Conversion
 from .serializers import ConvertSerializer
 
@@ -47,6 +47,7 @@ class ConvertApi(generics.GenericAPIView):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             files = request.FILES.getlist("files")
+            print(files)
             Conversion().save()
             # Get this conversion operation id.
             last_id = Conversion.objects.latest("id").id
