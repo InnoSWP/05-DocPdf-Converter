@@ -47,6 +47,7 @@ class ConvertApi(generics.GenericAPIView):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             files = request.FILES.getlist("files")
+            print(files)
             Conversion().save()
             # Get this conversion operation id.
             last_id = Conversion.objects.latest("id").id
