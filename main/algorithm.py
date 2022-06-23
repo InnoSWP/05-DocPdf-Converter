@@ -59,10 +59,10 @@ def zip_files_in_dir(filepath: str, files: list[str], zip_file_name: str):
             f"{filepath}{zip_file_name}.pdf",
         )
         return ".pdf"
-    with ZipFile(f"{filepath}{zip_file_name}.zip", "w") as zipObj:
+    with ZipFile(f"{filepath}{zip_file_name}.zip", "w") as zip_obj:
         for file in files:
             file_full_name = f'{filepath}{file.rsplit(".", 1)[0]}.pdf'
-            zipObj.write(file_full_name, basename(file_full_name))
+            zip_obj.write(file_full_name, basename(file_full_name))
     return ".zip"
 
 
@@ -101,7 +101,7 @@ def convert(filepath: str, files: list[str], index):
     :rtype: str
     """
     converted_file_path = get_converted_file_path(index)
-    if platform == "linux" or platform == "linux2":
+    if platform in ("linux", "linux2"):
         convert_linux(filepath, files, converted_file_path)
     elif platform == "win32":
         convert_windows(filepath, files, converted_file_path)
@@ -121,11 +121,9 @@ def convert_windows(filepath: str, files: list[str], converted_file_path: str):
     :return: path to converted files
     :rtype: str
     """
-
     from docx2pdf import resolve_paths
-
-    if not len(files):
-        return []
+    if not files:
+        return
     paths = resolve_paths(filepath, converted_file_path)
     windows(paths)
 
@@ -151,15 +149,15 @@ def windows_convert_docx(
 
 
 def windows(paths):
-    import win32com.client as w32c
-    from servicemanager import CoInitializeEx
-
     """
     Conversion algorithm for Windows OS.
 
     :param paths: paths
     :type paths: dict[str, Union[bool, str, Path]]
     """
+
+    import win32com.client as w32c
+    from servicemanager import CoInitializeEx
 
     CoInitializeEx(0)
     # Open word application for conversion.
@@ -208,12 +206,11 @@ def convert_linux(filepath: str, files: list[str], converted_file_path: str):
     :return: path to converted files
     :rtype: str
     """
-    if not len(files):
-        return []
+    if not files:
+        return
     cmd = f"cd {filepath}"
     # For all files call lowriter for conversion (LibreOffice).
     for file in files:
         cmd += f" && lowriter --convert-to pdf {file} --outdir {converted_file_path}"
     # Execute all console commands.
     subprocess.call(cmd, shell=True)
-    return converted_file_path

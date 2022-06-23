@@ -25,8 +25,8 @@ class Converter(models.Model):
     """
     Converter model
 
-    :param files: all files for conversion
-    :param upload: instance of :class:`Upload` model
+    :files: all files for conversion
+    :upload: instance of :class:`Upload` model
     """
 
     files = models.FileField(

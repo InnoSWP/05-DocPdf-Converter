@@ -2,10 +2,11 @@ import shutil
 
 from django.shortcuts import render
 from rest_framework import generics, status
+from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 
 from .algorithm import save_files, convert, zip_files_in_dir, get_file_response
-from .models import Converter, Conversion
+from .models import Conversion
 from .serializers import ConvertSerializer
 
 
@@ -18,15 +19,14 @@ class ConvertApi(generics.GenericAPIView):
     """
 
     serializer_class = ConvertSerializer
-    queryset = Converter.objects.all()
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         """
         Post request handler for file conversion.
 
         :param request: request details
         :type request: :class:`rest_framework.request.Request`
-        :var serializer: formed with :class:`models.Conversion`
+        :serializer: convertSerializer formed with :class:`models.Conversion`
         :return: server response object
         :rtype: :class:`rest_framework.response.Response`
         """
@@ -35,7 +35,7 @@ class ConvertApi(generics.GenericAPIView):
             if (
                     "files" not in request.data
                     or "files" in request.data
-                    and not len(request.data["files"])
+                    and not request.data["files"]
             ):
                 return Response(
                     {
@@ -54,18 +54,14 @@ class ConvertApi(generics.GenericAPIView):
             # Save files and get the path to them.
             file_path, files_to_convert = save_files(files, last_id)
             # Save all filenames from request.
-            file_names = []
             # Iterate through files to get file names .
             for file in files:
                 # Current file name.
-                file_name = file.name
                 # Save acceptable file names.
                 # If one of the files is not acceptable, return 400 status response.
-                if any(
-                        acceptable_type in file_name for acceptable_type in acceptable_types
+                if not any(
+                        acceptable_type in file.name for acceptable_type in acceptable_types
                 ):
-                    file_names.append(file_name)
-                else:
                     shutil.rmtree(file_path)
                     return Response(
                         {
@@ -82,23 +78,23 @@ class ConvertApi(generics.GenericAPIView):
             # Get formatted response for file.
             response = get_file_response(
                 converted_file_path,
-                f"{zip_name}{zip_files_in_dir(converted_file_path, file_names, zip_name)}",
+                f"{zip_name}"
+                f"{zip_files_in_dir(converted_file_path, [file.name for file in files], zip_name)}",
             )
             # Remove all unnecessary directories.
             shutil.rmtree(file_path)
             shutil.rmtree(converted_file_path)
             return response
-        else:
-            # Return response if user not authenticated.
-            return Response(
-                {
-                    "error": "invalid_token",
-                    "error_description": "Your request is not authenticated.",
-                },
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
+        # Return response if user not authenticated.
+        return Response(
+            {
+                "error": "invalid_token",
+                "error_description": "Your request is not authenticated.",
+            },
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         """
         Get request handler for showing conversion page view.
 
@@ -109,6 +105,7 @@ class ConvertApi(generics.GenericAPIView):
         """
         if self.request_from_local(request):
             return render(request, "main/index.html", {})
+        return MethodNotAllowed(request.method, detail=None, code=None)
 
     @staticmethod
     def get_request_from(request) -> str:
@@ -120,12 +117,10 @@ class ConvertApi(generics.GenericAPIView):
         :return: ip address
         :rtype: :class:`string`
         """
-        ip = request.META.get("HTTP_X_FORWARDED_FOR")
-
-        if not ip:
-            ip = request.META.get("REMOTE_ADDR")
-
-        return ip
+        ip_from = request.META.get("HTTP_X_FORWARDED_FOR")
+        if ip_from:
+            return ip_from
+        return request.META.get("REMOTE_ADDR")
 
     @staticmethod
     def request_from_local(request) -> bool:
@@ -138,4 +133,4 @@ class ConvertApi(generics.GenericAPIView):
         :return: boolean flag
         :rtype: :class:`boolean`
         """
-        return True if ConvertApi.get_request_from(request) == "127.0.0.1" else False
+        return ConvertApi.get_request_from(request) == "127.0.0.1"
