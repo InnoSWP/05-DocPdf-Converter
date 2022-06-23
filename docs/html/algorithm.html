@@ -39,12 +39,12 @@
 <h2>Save files function<a class="headerlink" href="#save-files-function" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="main.algorithm.save_files">
-<span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">save_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">files:</span> <span class="pre">[&lt;class</span> <span class="pre">'str'&gt;],</span> <span class="pre">last_id:</span> <span class="pre">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.save_files" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">save_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.save_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allocate new directory for the files and save them there.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>files</strong> (<em>array of str</em>) – file names</p></li>
+<li><p><strong>files</strong> (<em>list of files</em>) – file names</p></li>
 <li><p><strong>last_id</strong> (<em>int</em>) – index for filepath</p></li>
 </ul>
 </dd>
@@ -60,18 +60,11 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="main.algorithm.get_converted_file_path">
 <span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">get_converted_file_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.get_converted_file_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to get converted path via index.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – index of converted path directory</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>converted path directory</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
+<dd><p>Function to get converted path via index.
+:param index: index of converted path directory
+:type index: int
+:return: converted path directory
+:rtype: str</p>
 </dd></dl>
 
 </section>
@@ -79,17 +72,19 @@
 <h2>Zip all files in directory function function<a class="headerlink" href="#zip-all-files-in-directory-function-function" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="main.algorithm.zip_files_in_dir">
-<span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">zip_files_in_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filepath:</span> <span class="pre">str,</span> <span class="pre">files:</span> <span class="pre">[&lt;class</span> <span class="pre">'str'&gt;],</span> <span class="pre">zip_file_name:</span> <span class="pre">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.zip_files_in_dir" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">zip_files_in_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.zip_files_in_dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Zip all files in given directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filepath</strong> (<em>str</em>) – path to input files</p></li>
-<li><p><strong>files</strong> (<em>array of str</em>) – file names</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – file names</p></li>
 <li><p><strong>zip_file_name</strong> (<em>str</em>) – name of zip file</p></li>
 </ul>
 </dd>
 </dl>
+<p>:return file_format
+:rtype string</p>
 </dd></dl>
 
 </section>
@@ -120,14 +115,14 @@
 <h2>Convert files core function<a class="headerlink" href="#convert-files-core-function" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="main.algorithm.convert">
-<span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filepath:</span> <span class="pre">str,</span> <span class="pre">files:</span> <span class="pre">[&lt;class</span> <span class="pre">'str'&gt;],</span> <span class="pre">index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.convert" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.convert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Conversion operator that determines the OS, calls suitable
 conversion algorithm, and returns path to them.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filepath</strong> (<em>str</em>) – path to input files</p></li>
-<li><p><strong>files</strong> (<em>array of str</em>) – file names</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – file names</p></li>
 <li><p><strong>index</strong> (<em>int</em>) – index for filepath</p></li>
 </ul>
 </dd>
@@ -172,14 +167,14 @@ conversion algorithm, and returns path to them.</p>
 <h2>Conversion Windows OS function<a class="headerlink" href="#conversion-windows-os-function" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="main.algorithm.convert_windows">
-<span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">convert_windows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filepath:</span> <span class="pre">str,</span> <span class="pre">files:</span> <span class="pre">[&lt;class</span> <span class="pre">'str'&gt;],</span> <span class="pre">index:</span> <span class="pre">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.convert_windows" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">convert_windows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converted_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.convert_windows" title="Permalink to this definition">¶</a></dt>
 <dd><p>Windows conversion core.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>converted_file_path</strong> (<em>str</em>) – path to output files</p></li>
 <li><p><strong>filepath</strong> (<em>str</em>) – path to input files</p></li>
-<li><p><strong>files</strong> (<em>array of str</em>) – file names</p></li>
-<li><p><strong>index</strong> (<em>int</em>) – index for filepath</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – file names</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -196,14 +191,14 @@ conversion algorithm, and returns path to them.</p>
 <h2>Save files function<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="main.algorithm.convert_linux">
-<span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">convert_linux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filepath:</span> <span class="pre">str,</span> <span class="pre">files:</span> <span class="pre">[&lt;class</span> <span class="pre">'str'&gt;],</span> <span class="pre">index:</span> <span class="pre">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.convert_linux" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">main.algorithm.</span></span><span class="sig-name descname"><span class="pre">convert_linux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converted_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.algorithm.convert_linux" title="Permalink to this definition">¶</a></dt>
 <dd><p>Conversion algorithm for Linux-like OS.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>converted_file_path</strong> (<em>str</em>) – path to output files</p></li>
 <li><p><strong>filepath</strong> (<em>str</em>) – path to input files</p></li>
-<li><p><strong>files</strong> (<em>array of str</em>) – file names</p></li>
-<li><p><strong>index</strong> (<em>int</em>) – index for filepath</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – file names</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
