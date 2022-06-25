@@ -8,8 +8,11 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
 
-from main.algorithm import (get_converted_file_path, save_files,
-                            zip_files_in_dir)
+from main.algorithm import (
+    get_converted_file_path,
+    save_files,
+    zip_files_in_dir
+)
 
 
 class AlgorithmTestCase(TestCase):
