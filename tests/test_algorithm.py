@@ -1,23 +1,21 @@
+import glob
 import os
 from os import path
 from pathlib import Path
-import glob
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
-from main.algorithm import (
-    get_converted_file_path,
-    save_files,
-    zip_files_in_dir,
-)
+
+from main.algorithm import get_converted_file_path, save_files, zip_files_in_dir
 
 
 class AlgorithmTestCase(TestCase):
     """
-        class with all test algorithms
+    class with all test algorithms
     """
+
     root = Path(path.dirname(__file__)).parent.absolute()
 
     def test_save_files_one_correct(self):
@@ -97,17 +95,13 @@ class AlgorithmTestCase(TestCase):
         :return:
         """
         path_to_files = f"{self.root}\\main\\converted_files\\0\\"
-        files = glob.glob(f'{path_to_files}*')
+        files = glob.glob(f"{path_to_files}*")
         for file in files:
             os.remove(file)
-        with open(f'{path_to_files}test1.pdf', "w", encoding="utf-8"):
+        with open(f"{path_to_files}test1.pdf", "w", encoding="utf-8"):
             pass
         self.assertEqual(
-            zip_files_in_dir(
-                path_to_files,
-                ["test1.pdf"],
-                "result"
-            ),
+            zip_files_in_dir(path_to_files, ["test1.pdf"], "result"),
             ".pdf",
         )
 
@@ -117,12 +111,12 @@ class AlgorithmTestCase(TestCase):
         :return:
         """
         path_to_files = f"{self.root}\\main\\converted_files\\1\\"
-        files = glob.glob(f'{path_to_files}*')
+        files = glob.glob(f"{path_to_files}*")
         for file in files:
             os.remove(file)
         check_files = ["test2.pdf", "test3.pdf"]
         for file in check_files:
-            with open(f'{path_to_files}{file}', "w", encoding="utf-8"):
+            with open(f"{path_to_files}{file}", "w", encoding="utf-8"):
                 pass
         self.assertEqual(
             zip_files_in_dir(
