@@ -8,11 +8,7 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
 
-from main.algorithm import (
-    get_converted_file_path,
-    save_files,
-    zip_files_in_dir
-)
+import main.algorithm as main_a
 
 
 class AlgorithmTestCase(TestCase):
@@ -44,7 +40,7 @@ class AlgorithmTestCase(TestCase):
             http_request = HttpRequest()
             http_request.FILES = files
             self.assertEqual(
-                save_files(http_request.FILES.getlist("files"), 0),
+                main_a.save_files(http_request.FILES.getlist("files"), 0),
                 (f"{self.root}\\main\\files\\0\\", ["test1.docx"]),
             )
 
@@ -73,7 +69,7 @@ class AlgorithmTestCase(TestCase):
         http_request.FILES = files
         try:
             self.assertEqual(
-                save_files(http_request.FILES.getlist("files"), 0),
+                main_a.save_files(http_request.FILES.getlist("files"), 0),
                 (
                     f"{self.root}\\main\\files\\0\\",
                     ["test1.docx", "test2.docx"],
@@ -89,7 +85,7 @@ class AlgorithmTestCase(TestCase):
         :return:
         """
         self.assertEqual(
-            get_converted_file_path(0),
+            main_a.get_converted_file_path(0),
             f"{self.root}\\main\\converted_files\\0\\",
         )
 
@@ -105,7 +101,7 @@ class AlgorithmTestCase(TestCase):
         with open(f"{path_to_files}test1.pdf", "w", encoding="utf-8"):
             pass
         self.assertEqual(
-            zip_files_in_dir(path_to_files, ["test1.pdf"], "result"),
+            main_a.zip_files_in_dir(path_to_files, ["test1.pdf"], "result"),
             ".pdf",
         )
 
@@ -123,7 +119,7 @@ class AlgorithmTestCase(TestCase):
             with open(f"{path_to_files}{file}", "w", encoding="utf-8"):
                 pass
         self.assertEqual(
-            zip_files_in_dir(
+            main_a.zip_files_in_dir(
                 path_to_files,
                 check_files,
                 "result",
