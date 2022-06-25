@@ -22,7 +22,7 @@ def save_files(files, last_id: int):
     """
 
     # File path to saving files.
-    file_path = f"{path.dirname(__file__)}/files/{last_id}/"
+    file_path = f"{path.dirname(__file__)}\\files\\{last_id}\\"
     converted_file_path = get_converted_file_path(last_id)
     makedirs(converted_file_path, exist_ok=True)
     # Allocate new directory if it doesn't exist.
@@ -122,6 +122,7 @@ def convert_windows(filepath: str, files: list[str], converted_file_path: str):
     :rtype: str
     """
     from docx2pdf import resolve_paths
+
     if not files:
         return
     paths = resolve_paths(filepath, converted_file_path)
@@ -129,7 +130,7 @@ def convert_windows(filepath: str, files: list[str], converted_file_path: str):
 
 
 def windows_convert_docx(
-        word, docx_filepath: Path, pdf_filepath: Path, pdf_format: int
+    word, docx_filepath: Path, pdf_filepath: Path, pdf_format: int
 ):
     """
     Windows conversion docx part.
@@ -187,7 +188,7 @@ def get_converted_file_path(index: int):
     :rtype: str
     """
     # Path to converted files.
-    converted_file_path = f"{path.dirname(__file__)}/converted_files/{index}/"
+    converted_file_path = f"{path.dirname(__file__)}\\converted_files\\{index}\\"
     # Make this directory if it doesn't exist.
     makedirs(converted_file_path, exist_ok=True)
     return converted_file_path
