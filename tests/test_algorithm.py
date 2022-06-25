@@ -1,4 +1,5 @@
 from os import path
+from pathlib import Path
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpRequest
@@ -12,27 +13,30 @@ from main.algorithm import (
 
 
 class AlgorithmTestCase(TestCase):
+    root = Path(path.dirname(__file__)).parent.absolute()
+
     def test_save_files_one_correct(self):
         files = MultiValueDict()
         file = InMemoryUploadedFile(
-            file=open(f"{path.dirname(__file__)[:-11]}\\test1.docx", "rb"),
+            file=open(f"{path.dirname(__file__)}\\..\\test1.docx", "rb"),
             field_name="files",
             name="test1.docx",
             content_type="application/octet-stream",
             size=87,
             charset=None,
         )
+        print(self.root)
         files["files"] = file
         http_request = HttpRequest()
         http_request.FILES = files
         self.assertEqual(
             save_files(http_request.FILES.getlist("files"), 0),
-            (f"{path.dirname(__file__)[:-6]}\\files\\0\\", ["test1.docx"]),
+            (f"{self.root}\\main\\files\\0\\", ["test1.docx"]),
         )
 
     def test_save_files_two_correct(self):
         file1 = InMemoryUploadedFile(
-            file=open(f"{path.dirname(__file__)[:-11]}\\test1.docx", "rb"),
+            file=open(f"{path.dirname(__file__)}\\test1.docx", "rb"),
             field_name="files",
             name="test1.docx",
             content_type="application/octet-stream",
@@ -40,7 +44,7 @@ class AlgorithmTestCase(TestCase):
             charset=None,
         )
         file2 = InMemoryUploadedFile(
-            file=open(f"{path.dirname(__file__)[:-11]}\\test2.docx", "rb"),
+            file=open(f"{path.dirname(__file__)}\\test2.docx", "rb"),
             field_name="files",
             name="test2.docx",
             content_type="application/octet-stream",
@@ -53,7 +57,7 @@ class AlgorithmTestCase(TestCase):
         self.assertEqual(
             save_files(http_request.FILES.getlist("files"), 0),
             (
-                f"{path.dirname(__file__)[:-6]}\\files\\0\\",
+                f"{self.root}\\main\\files\\0\\",
                 ["test1.docx", "test2.docx"],
             ),
         )
@@ -61,18 +65,15 @@ class AlgorithmTestCase(TestCase):
     def test_get_converted_file_path_correct(self):
         self.assertEqual(
             get_converted_file_path(0),
-            f"{path.dirname(__file__)[:-6]}\\converted_files\\0\\",
-        )
-
-    def test_get_converted_file_path_incorrect(self):
-        self.assertEqual(
-            get_converted_file_path(0), f"{path.dirname(__file__)[:-6]}\\wrong_path"
+            f"{self.root}\\main\\converted_files\\0\\",
         )
 
     def test_zipping_one_correct(self):
         self.assertEqual(
             zip_files_in_dir(
-                f"{path.dirname(__file__)[:-11]}\\", ["test1.pdf"], "result"
+                f"{self.root}\\main\\converted_files\\0\\",
+                ["test1.pdf"],
+                "result"
             ),
             ".pdf",
         )
@@ -80,8 +81,8 @@ class AlgorithmTestCase(TestCase):
     def test_zipping_two_correct(self):
         self.assertEqual(
             zip_files_in_dir(
-                f"{path.dirname(__file__)[:-11]}\\",
-                ["test1.pdf", "test2.pdf"],
+                f"{self.root}\\main\\converted_files\\1\\",
+                ["test2.pdf", "test3.pdf"],
                 "result",
             ),
             ".zip",
