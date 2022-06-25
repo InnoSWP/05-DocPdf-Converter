@@ -3,12 +3,11 @@ import os
 from os import path
 from pathlib import Path
 
+import main.algorithm as main_a
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
-
-import main.algorithm as main_a
 
 
 class AlgorithmTestCase(TestCase):
