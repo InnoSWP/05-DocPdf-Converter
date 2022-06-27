@@ -40,7 +40,7 @@ def save_files(files, last_id: int):
     return file_path, files_to_convert
 
 
-def zip_files_in_dir(filepath: str, files: list[str], zip_file_name: str):
+def zip_files_in_dir(filepath: str, files, zip_file_name: str):
     """
     Zip all files in given directory.
 
@@ -86,7 +86,7 @@ def get_file_response(file_path: str, file_name: str):
     return response
 
 
-def convert(filepath: str, files: list[str], index):
+def convert(filepath: str, files, index):
     """
     Conversion operator that determines the OS, calls suitable
     conversion algorithm, and returns path to them.
@@ -108,7 +108,7 @@ def convert(filepath: str, files: list[str], index):
     return converted_file_path
 
 
-def convert_windows(filepath: str, files: list[str], converted_file_path: str):
+def convert_windows(filepath: str, files, converted_file_path: str):
     """
     Windows conversion core.
 
@@ -194,7 +194,7 @@ def get_converted_file_path(index: int):
     return converted_file_path
 
 
-def convert_linux(filepath: str, files: list[str], converted_file_path: str):
+def convert_linux(filepath: str, files, converted_file_path: str):
     """
     Conversion algorithm for Linux-like OS.
 
