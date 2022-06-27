@@ -11,17 +11,6 @@ from django.http import HttpResponse
 from env_consts import OS_SLASH
 
 
-def get_OS_SLASH():
-    """
-    function that returns specific slash for OS
-    :return: slash
-    :rtype: str
-    """
-    if platform == "win32":
-        return "\\"
-    return "/"
-
-
 def save_files(files, last_id: int):
     """
     Allocate new directory for the files and save them there.
