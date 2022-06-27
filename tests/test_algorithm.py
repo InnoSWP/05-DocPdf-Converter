@@ -4,12 +4,11 @@ from os import path
 from pathlib import Path
 from sys import platform
 
+import main.algorithm as main_a
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
-
-import main.algorithm as main_a
 
 
 def get_os_slash():
@@ -107,7 +106,7 @@ class AlgorithmTestCase(TestCase):
         test method for zipping one file in directory
         :return:
         """
-        path_to_files = f"{self.root}{self.slash_for_os}main\\converted_files\\0\\"
+        path_to_files = f"{self.root}{self.slash_for_os}main/converted_files/0/"
         files = glob.glob(f"{path_to_files}*")
         for file in files:
             os.remove(file)
@@ -123,7 +122,7 @@ class AlgorithmTestCase(TestCase):
         test method for zipping two files in directory
         :return:
         """
-        path_to_files = f"{self.root}{self.slash_for_os}main\\converted_files\\1\\"
+        path_to_files = f"{self.root}{self.slash_for_os}main/converted_files/1/"
         files = glob.glob(f"{path_to_files}*")
         for file in files:
             os.remove(file)

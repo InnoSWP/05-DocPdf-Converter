@@ -6,10 +6,10 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=InnoSWP_05-DocPdf-Converter&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=InnoSWP_05-DocPdf-Converter)
 
 ## Project Description
-### This is the project with user-friendly and simple interface that perform converting files with .doc/.docx extention to PDF on local Windows/Linux server.
-* Each of the algorithms (both for Windows and Linux) uses the built-in functions of programms-viewers (such as [**Microsoft Word**](https://en.wikipedia.org/wiki/Microsoft_Word) for Windows and [**LibreOffice Writer**](https://en.wikipedia.org/wiki/LibreOffice_Writer) for Linux) to convert files with .doc/.docx extension to PDFs with minimum conversional errors.
-* All files after the conversion are returned back in archive with PDFs (if there are more than one file) or as a single PDF file otherwise. 
-* In case if the user will choose file(-s) with .pdf extension, then the program will send them back **=)**.
+### This is the project with user-friendly and simple interface that perform converting files with .doc/.docx extention to PDF on local Windows/Linux server
+* Each of the algorithms (both for Windows and Linux) uses the built-in functions of programs-viewers (such as [**Microsoft Word**](https://en.wikipedia.org/wiki/Microsoft_Word) for Windows and [**LibreOffice Writer**](https://en.wikipedia.org/wiki/LibreOffice_Writer) for Linux) to convert files with .doc/.docx extension to PDFs with minimum conversional errors.
+* All files after the conversion are returned in archive with PDFs (if there are more than one file) or as a single PDF file otherwise.
+* In case if the user will choose file(-s) with ".pdf" extension, then the program will send them back **=)**.
 
 ## Project Installation
 ### To set up the project, set your virtual env using the commands in this order (Ubuntu)
@@ -22,7 +22,6 @@
 7. python3 manage.py makemigrations
 8. python3 manage.py makemigrations main
 9. python3 manage.py migrate
-git clone https://github.com/InnoSWP/05-DocPdf-Converter.git
 sudo apt install python3 && sudo apt install python3-venv && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python3 manage.py migrate && python3 manage.py makemigrations && python3 manage.py makemigrations main && python3 manage.py migrate
 
 ### To set up the project, set your virtual env using the commands in this order (Bash)
@@ -66,5 +65,5 @@ sudo apt install python3 && sudo apt install python3-venv && python3 -m venv ven
 
 ## Features
 ### Cross-platform
-DocPdf converter has two different modules that allow efficient conversion on both Linux and Windows-based servers. 
+DocPdf converter has two different modules that allow efficient conversion on both Linux and Windows-based servers.
 The system identifies the platform it runs on, and, depending on the result, executes corresponding module.
