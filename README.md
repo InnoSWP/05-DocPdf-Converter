@@ -23,7 +23,7 @@ https://innoswp.github.io/05-DocPdf-Converter/
 7. Make sure that here is configured your environment
 
 
-## Framework and technology:
+## Framework and technology
 ### Frontend
 
 - HTML
@@ -38,3 +38,7 @@ https://innoswp.github.io/05-DocPdf-Converter/
   - Django Rest Framework
   - Sphinx
   - docx2pdf
+
+## Features
+### Crossplatform
+DocPdf converter has two different modules that allow efficient convertation on both Linux- and Windows-based servers. The system identifies the platform it runs on, and, depending on the result, executes corresponding module.
