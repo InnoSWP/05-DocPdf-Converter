@@ -40,5 +40,5 @@ https://innoswp.github.io/05-DocPdf-Converter/
   - docx2pdf
 
 ## Features
-### Crossplatform
+### Cross-platform
 DocPdf converter has two different modules that allow efficient convertation on both Linux- and Windows-based servers. The system identifies the platform it runs on, and, depending on the result, executes corresponding module.
