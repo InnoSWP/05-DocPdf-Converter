@@ -1,19 +1,16 @@
-# Full documentation link:
+# Doc to PDF converter
 
+## Full documentation link:
 https://innoswp.github.io/05-DocPdf-Converter/
 
-# 05-DocPdf-Converter
-
-To set up project set your virtual env use commands in this order (Bash)
-
+## Project Installation:
+### To set up project set your virtual env use commands in this order (Bash):
 1. source venv/Scripts/activate
 2. python manage.py migrate
 3. python manage.py makemigrations
 4. python manage.py runserver
 
-You also can add server runner to your configs,
-to do that follow this steps (PyCharm):
-
+### You also can add server runner to your configs, to do that follow this steps (PyCharm):
 1. Open configurations editor
 2. Add new configuration
 3. Python
@@ -22,14 +19,19 @@ to do that follow this steps (PyCharm):
 6. Set parameters: "runserver"
 7. Make sure that here is configured your environment
 
-# Framework and technology
-## Frontend
+
+## Framework and technology
+### Frontend
 
 - HTML
 - CSS
 - JavaScript
 - JQuery
 
-## Backend
+### Backend
 
-...
+- Python
+  - Django
+  - Django Rest Framework
+  - Sphinx
+  - docx2pdf
