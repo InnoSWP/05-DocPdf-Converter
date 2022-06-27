@@ -52,8 +52,11 @@ class AlgorithmTestCase(TestCase):
             http_request.FILES = files
             self.assertEqual(
                 main_a.save_files(http_request.FILES.getlist("files"), 0),
-                (f"{self.root}{self.slash_for_os}main{self.slash_for_os}"
-                 f"files{self.slash_for_os}0{self.slash_for_os}", ["test1.docx"]),
+                (
+                    f"{self.root}{self.slash_for_os}main{self.slash_for_os}"
+                    f"files{self.slash_for_os}0{self.slash_for_os}",
+                    ["test1.docx"],
+                ),
             )
 
     def test_save_files_two_correct(self):
