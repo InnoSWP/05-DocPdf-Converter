@@ -8,7 +8,6 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
-
 from env_consts import OS_SLASH
 
 
