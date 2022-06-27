@@ -6,13 +6,13 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=InnoSWP_05-DocPdf-Converter&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=InnoSWP_05-DocPdf-Converter)
 
 ## Project Installation
-### To set up project set your virtual env use commands in this order (Bash)
+### To set up the project, set your virtual env using the commands in this order (Bash)
 1. source venv/Scripts/activate
 2. python manage.py migrate
 3. python manage.py makemigrations
 4. python manage.py runserver
 
-### You also can add server runner to your configs, to do that follow this steps (PyCharm)
+### You can also add server runner to your configs. To that, follow this steps (PyCharm)
 1. Open configurations editor
 2. Add new configuration
 3. Python
@@ -21,10 +21,10 @@
 6. Set parameters: "runserver"
 7. Make sure that here is configured your environment
 
-* After running the local server go on 127.0.0.1 and click on link right next "converter" in the opened window.
+* After running the local server, go on 127.0.0.1 and click on the link right next the "converter" in the opened window.
 * The main page will be opened. There you will see two buttons: "Choose files" and "Convert".
-* You can choose files on your machine and after that convert them by clicking same-called buttons.
-* Depends on the amount of choosed files you will receive single-converted file(if you choosed one file) or arcive of files otherwise.
+* You can choose files on your machine, and after that convert them by clicking the same-called button.
+* Depending on the amount of choosed files, you will receive a single-converted file (if you choosed one file) or an archive of files otherwise.
 
 ## Framework and technology
 ### Frontend
