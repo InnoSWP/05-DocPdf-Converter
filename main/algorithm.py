@@ -8,6 +8,7 @@ from sys import platform
 from zipfile import ZipFile
 
 from django.http import HttpResponse
+from env_consts import OS_SLASH
 
 
 def save_files(files, last_id: int):
@@ -22,7 +23,7 @@ def save_files(files, last_id: int):
     """
 
     # File path to saving files.
-    file_path = f"{path.dirname(__file__)}\\files\\{last_id}\\"
+    file_path = f"{path.dirname(__file__)}{OS_SLASH}files{OS_SLASH}{last_id}{OS_SLASH}"
     converted_file_path = get_converted_file_path(last_id)
     makedirs(converted_file_path, exist_ok=True)
     # Allocate new directory if it doesn't exist.
@@ -40,7 +41,7 @@ def save_files(files, last_id: int):
     return file_path, files_to_convert
 
 
-def zip_files_in_dir(filepath: str, files: list[str], zip_file_name: str):
+def zip_files_in_dir(filepath: str, files, zip_file_name: str):
     """
     Zip all files in given directory.
 
@@ -86,7 +87,7 @@ def get_file_response(file_path: str, file_name: str):
     return response
 
 
-def convert(filepath: str, files: list[str], index):
+def convert(filepath: str, files, index):
     """
     Conversion operator that determines the OS, calls suitable
     conversion algorithm, and returns path to them.
@@ -108,7 +109,7 @@ def convert(filepath: str, files: list[str], index):
     return converted_file_path
 
 
-def convert_windows(filepath: str, files: list[str], converted_file_path: str):
+def convert_windows(filepath: str, files, converted_file_path: str):
     """
     Windows conversion core.
 
@@ -188,13 +189,15 @@ def get_converted_file_path(index: int):
     :rtype: str
     """
     # Path to converted files.
-    converted_file_path = f"{path.dirname(__file__)}\\converted_files\\{index}\\"
+    converted_file_path = (
+        f"{path.dirname(__file__)}{OS_SLASH}converted_files{OS_SLASH}{index}{OS_SLASH}"
+    )
     # Make this directory if it doesn't exist.
     makedirs(converted_file_path, exist_ok=True)
     return converted_file_path
 
 
-def convert_linux(filepath: str, files: list[str], converted_file_path: str):
+def convert_linux(filepath: str, files, converted_file_path: str):
     """
     Conversion algorithm for Linux-like OS.
 
