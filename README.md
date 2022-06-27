@@ -5,6 +5,12 @@
 [![Build](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml/badge.svg)](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=InnoSWP_05-DocPdf-Converter&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=InnoSWP_05-DocPdf-Converter)
 
+## Project Description
+### This is the project with user-friendly and simple interface that perform converting files with .doc/.docx extention to PDF on local Windows/Linux server.
+* Each of the algorithms (both for Windows and Linux) uses the built-in functions of programms-viewers (such as [**Microsoft Word**](https://en.wikipedia.org/wiki/Microsoft_Word) for Windows and [**LibreOffice Writer**](https://en.wikipedia.org/wiki/LibreOffice_Writer) for Linux) to convert files with .doc/.docx extension to PDFs with minimum conversional errors.
+* All files after the conversion are returned back in archive with PDFs (if there are more than one file) or as a single PDF file otherwise. 
+* In case if the user will choose file(-s) with .pdf extension, then the program will send them back **=)**.
+
 ## Project Installation
 ### To set up the project, set your virtual env using the commands in this order (Ubuntu)
 1. sudo apt install python3
@@ -34,19 +40,22 @@
 6. Set parameters: "runserver"
 7. Make sure that here is configured your environment
 
-* After running the local server, go on 127.0.0.1 and click on the link right next the "converter" in the opened window.
-* The main page will be opened. There you will see two buttons: "Choose files" and "Convert".
-* You can choose files on your machine, and after that convert them by clicking the same-called button.
-* Depending on the amount of chosen files, you will receive a single-converted file (if you have chosen one file) or an archive of files otherwise.
+### After running the local server
+1. Go on the generated [**link**](http://127.0.0.1:8000/convert).
+2. The main page will be opened. There you will see two buttons: "Choose files" and "Convert".
+3. You can choose files on your machine and after that convert them by clicking the same-called buttons.
+4. Depending on the amount of choosed files, you will receive a single-converted file (if you choosed one file) or an archive of converted files otherwise.
 
 ## Framework and technology
 ### Frontend
+
 - HTML
 - CSS
 - JavaScript
 - JQuery
 
 ### Backend
+
 - Python
   - Django
   - Django Rest Framework
