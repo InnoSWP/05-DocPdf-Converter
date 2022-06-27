@@ -5,6 +5,7 @@ https://innoswp.github.io/05-DocPdf-Converter/
 
 ## Badges
 [![Build](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml/badge.svg)](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=InnoSWP_05-DocPdf-Converter&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=InnoSWP_05-DocPdf-Converter)
 
 ## Project Installation:
 ### To set up project set your virtual env use commands in this order (Bash):
