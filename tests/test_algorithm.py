@@ -2,7 +2,6 @@ import glob
 import os
 from os import path
 from pathlib import Path
-from sys import platform
 
 import main.algorithm as main_a
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -10,16 +9,7 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
 
-
-def get_os_slash():
-    """
-    function that returns specific slash for OS
-    :return: slash
-    :rtype: str
-    """
-    if platform == "win32":
-        return "\\"
-    return "/"
+from main.env_consts import OS_SLASH
 
 
 class AlgorithmTestCase(TestCase):
@@ -28,7 +18,6 @@ class AlgorithmTestCase(TestCase):
     """
 
     root = Path(path.dirname(__file__)).parent.absolute()
-    slash_for_os = get_os_slash()
 
     def test_save_files_one_correct(self):
         """
@@ -38,7 +27,7 @@ class AlgorithmTestCase(TestCase):
         """
 
         files = MultiValueDict()
-        with open(f"{self.root}{self.slash_for_os}test1.docx", "rb") as test_file:
+        with open(f"{self.root}{OS_SLASH}test1.docx", "rb") as test_file:
             file = InMemoryUploadedFile(
                 file=test_file,
                 field_name=test_file,
@@ -53,8 +42,8 @@ class AlgorithmTestCase(TestCase):
             self.assertEqual(
                 main_a.save_files(http_request.FILES.getlist("files"), 0),
                 (
-                    f"{self.root}{self.slash_for_os}main{self.slash_for_os}"
-                    f"files{self.slash_for_os}0{self.slash_for_os}",
+                    f"{self.root}{OS_SLASH}main{OS_SLASH}"
+                    f"files{OS_SLASH}0{OS_SLASH}",
                     ["test1.docx"],
                 ),
             )
@@ -67,7 +56,7 @@ class AlgorithmTestCase(TestCase):
         """
         files, opened_files = [], []
         for file_name in ["test1.docx", "test2.docx"]:
-            file = open(f"{self.root}{self.slash_for_os}{f'{file_name}'}", "rb")
+            file = open(f"{self.root}{OS_SLASH}{f'{file_name}'}", "rb")
             opened_files.append(file)
             files.append(
                 InMemoryUploadedFile(
@@ -86,8 +75,8 @@ class AlgorithmTestCase(TestCase):
             self.assertEqual(
                 main_a.save_files(http_request.FILES.getlist("files"), 0),
                 (
-                    f"{self.root}{self.slash_for_os}main{self.slash_for_os}"
-                    f"files{self.slash_for_os}0{self.slash_for_os}",
+                    f"{self.root}{OS_SLASH}main{OS_SLASH}"
+                    f"files{OS_SLASH}0{OS_SLASH}",
                     ["test1.docx", "test2.docx"],
                 ),
             )
@@ -102,8 +91,8 @@ class AlgorithmTestCase(TestCase):
         """
         self.assertEqual(
             main_a.get_converted_file_path(0),
-            f"{self.root}{self.slash_for_os}main{self.slash_for_os}converted_files{self.slash_for_os}0"
-            f"{self.slash_for_os}",
+            f"{self.root}{OS_SLASH}main{OS_SLASH}converted_files{OS_SLASH}0"
+            f"{OS_SLASH}",
         )
 
     def test_zipping_one_correct(self):
@@ -111,7 +100,7 @@ class AlgorithmTestCase(TestCase):
         test method for zipping one file in directory
         :return:
         """
-        path_to_files = f"{self.root}{self.slash_for_os}main/converted_files/0/"
+        path_to_files = f"{self.root}{OS_SLASH}main/converted_files/0/"
         files = glob.glob(f"{path_to_files}*")
         for file in files:
             os.remove(file)
@@ -127,7 +116,7 @@ class AlgorithmTestCase(TestCase):
         test method for zipping two files in directory
         :return:
         """
-        path_to_files = f"{self.root}{self.slash_for_os}main/converted_files/1/"
+        path_to_files = f"{self.root}{OS_SLASH}main/converted_files/1/"
         files = glob.glob(f"{path_to_files}*")
         for file in files:
             os.remove(file)
