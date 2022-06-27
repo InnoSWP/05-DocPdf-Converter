@@ -3,6 +3,7 @@
 
 ## Badges
 [![Build](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml/badge.svg)](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml)
+[![Django CI](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/django.yml/badge.svg)](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/django.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=InnoSWP_05-DocPdf-Converter&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=InnoSWP_05-DocPdf-Converter)
 
 ## Project Description
