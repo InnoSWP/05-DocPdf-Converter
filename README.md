@@ -1,5 +1,8 @@
 # Doc to PDF converter
 
+## Badges
+![example workflow](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/Build/badge.svg)
+
 ## Full documentation link:
 https://innoswp.github.io/05-DocPdf-Converter/
 
@@ -20,7 +23,7 @@ https://innoswp.github.io/05-DocPdf-Converter/
 7. Make sure that here is configured your environment
 
 
-## Framework and technology
+## Framework and technology:
 ### Frontend
 
 - HTML
