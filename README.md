@@ -7,7 +7,7 @@
 
 ## Project Description
 ### This is the project with user-friendly and simple interface that perform converting files with .doc/.docx extention to PDF on local Windows/Linux server.
-* Eech of the algorithms (both for Windows and Linux) uses the built-in functions of programms-viewers (such as [**Microsoft Word**](https://en.wikipedia.org/wiki/Microsoft_Word) for Windows and [**LibreOffice Writer**](https://en.wikipedia.org/wiki/LibreOffice_Writer) for Linux) to convert files with .doc/.docx extension to PDFs with minimum conversional errors.
+* Each of the algorithms (both for Windows and Linux) uses the built-in functions of programms-viewers (such as [**Microsoft Word**](https://en.wikipedia.org/wiki/Microsoft_Word) for Windows and [**LibreOffice Writer**](https://en.wikipedia.org/wiki/LibreOffice_Writer) for Linux) to convert files with .doc/.docx extension to PDFs with minimum conversional errors.
 * All files after the conversion are returned back in archive with PDFs (if there are more than one file) or as a single PDF file otherwise. 
 * In case if the user will choose file(-s) with .pdf extension, then the program will send them back **=)**.
 
