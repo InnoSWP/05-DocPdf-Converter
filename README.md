@@ -21,3 +21,15 @@ to do that follow this steps (PyCharm):
 5. Set script path (Path to manage.py)
 6. Set parameters: "runserver"
 7. Make sure that here is configured your environment
+
+# Framework and technology
+## Frontend
+
+- HTML
+- CSS
+- JavaScript
+- JQuery
+
+## Backend
+
+...
