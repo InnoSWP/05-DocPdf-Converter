@@ -3,6 +3,9 @@
 ## Full documentation link:
 https://innoswp.github.io/05-DocPdf-Converter/
 
+## Badges
+[![Build](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml/badge.svg)](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml)
+
 ## Project Installation:
 ### To set up project set your virtual env use commands in this order (Bash):
 1. source venv/Scripts/activate
