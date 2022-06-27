@@ -19,10 +19,12 @@
 4. source venv/bin/activate
 5. pip install -r requirements.txt
 6. python3 manage.py migrate
-7. python manage.py makemigrations
-8. python manage.py makemigrations main
+7. python3 manage.py makemigrations
+8. python3 manage.py makemigrations main
 9. python3 manage.py migrate
-  
+git clone https://github.com/InnoSWP/05-DocPdf-Converter.git
+sudo apt install python3 && sudo apt install python3-venv && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python3 manage.py migrate && python3 manage.py makemigrations && python3 manage.py makemigrations main && python3 manage.py migrate
+
 ### To set up the project, set your virtual env using the commands in this order (Bash)
 1. source venv/Scripts/activate
 2. python manage.py migrate
