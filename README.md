@@ -1,8 +1,5 @@
 # Doc to PDF converter
 
-## Badges
-![example workflow](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/Build/badge.svg)
-
 ## Full documentation link:
 https://innoswp.github.io/05-DocPdf-Converter/
 
@@ -22,6 +19,10 @@ https://innoswp.github.io/05-DocPdf-Converter/
 6. Set parameters: "runserver"
 7. Make sure that here is configured your environment
 
+* After running the local server go on 127.0.0.1 and click on link right next "converter" in the opened window.
+* The main page will be opened. There you will see two buttons: "Choose files" and "Convert".
+* You can choose files on your machine and after that convert them by clicking same-called buttons.
+* Depends on the amount of choosed files you will receive single-converted file(if you choosed one file) or arcive of files otherwise.
 
 ## Framework and technology
 ### Frontend
@@ -40,5 +41,5 @@ https://innoswp.github.io/05-DocPdf-Converter/
   - docx2pdf
 
 ## Features
-### Cross-platform
-DocPdf converter has two different modules that allow efficient convertation on both Linux- and Windows-based servers. The system identifies the platform it runs on, and, depending on the result, executes corresponding module.
+### Crossplatform
+DocPdf converter has two different modules that allow efficient convertation on both Linux- and Windows-based servers. The system identifies the platform it runs on, and, depending on the result, executes corresponding module...
