@@ -22,7 +22,10 @@ def save_files(files, last_id: int):
     """
 
     # File path to saving files.
-    file_path = f"{path.dirname(__file__)}\\files\\{last_id}\\"
+    if platform == "win32":
+        file_path = f"{path.dirname(__file__)}\\files\\{last_id}\\"
+    else:
+        file_path = f"{path.dirname(__file__)}/files/{last_id}/"
     converted_file_path = get_converted_file_path(last_id)
     makedirs(converted_file_path, exist_ok=True)
     # Allocate new directory if it doesn't exist.
@@ -188,7 +191,10 @@ def get_converted_file_path(index: int):
     :rtype: str
     """
     # Path to converted files.
-    converted_file_path = f"{path.dirname(__file__)}\\converted_files\\{index}\\"
+    if platform == "win32":
+        converted_file_path = f"{path.dirname(__file__)}\\converted_files\\{index}\\"
+    else:
+        converted_file_path = f"{path.dirname(__file__)}/converted_files/{index}/"
     # Make this directory if it doesn't exist.
     makedirs(converted_file_path, exist_ok=True)
     return converted_file_path

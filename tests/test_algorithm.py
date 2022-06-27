@@ -38,7 +38,7 @@ class AlgorithmTestCase(TestCase):
         """
 
         files = MultiValueDict()
-        with open(f"{self.root}/test1.docx", "rb") as test_file:
+        with open(f"{self.root}{self.slash_for_os}test1.docx", "rb") as test_file:
             file = InMemoryUploadedFile(
                 file=test_file,
                 field_name=test_file,
@@ -47,13 +47,13 @@ class AlgorithmTestCase(TestCase):
                 size=87,
                 charset=None,
             )
-            print(self.root)
             files["files"] = file
             http_request = HttpRequest()
             http_request.FILES = files
             self.assertEqual(
                 main_a.save_files(http_request.FILES.getlist("files"), 0),
-                (f"{self.root}{self.slash_for_os}main\\files\\0\\", ["test1.docx"]),
+                (f"{self.root}{self.slash_for_os}main{self.slash_for_os}"
+                 f"files{self.slash_for_os}0{self.slash_for_os}", ["test1.docx"]),
             )
 
     def test_save_files_two_correct(self):
@@ -83,7 +83,8 @@ class AlgorithmTestCase(TestCase):
             self.assertEqual(
                 main_a.save_files(http_request.FILES.getlist("files"), 0),
                 (
-                    f"{self.root}{self.slash_for_os}main\\files\\0\\",
+                    f"{self.root}{self.slash_for_os}main{self.slash_for_os}"
+                    f"files{self.slash_for_os}0{self.slash_for_os}",
                     ["test1.docx", "test2.docx"],
                 ),
             )
@@ -98,7 +99,8 @@ class AlgorithmTestCase(TestCase):
         """
         self.assertEqual(
             main_a.get_converted_file_path(0),
-            f"{self.root}{self.slash_for_os}main\\converted_files\\0\\",
+            f"{self.root}{self.slash_for_os}main{self.slash_for_os}converted_files{self.slash_for_os}0"
+            f"{self.slash_for_os}",
         )
 
     def test_zipping_one_correct(self):
