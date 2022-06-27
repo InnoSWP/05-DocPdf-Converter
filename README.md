@@ -1,5 +1,5 @@
 # Doc to PDF converter
-### [Full documentation link](https://innoswp.github.io/05-DocPdf-Converter/)
+## [Full documentation link](https://innoswp.github.io/05-DocPdf-Converter/)
 
 ## Badges
 [![Build](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml/badge.svg)](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml)
