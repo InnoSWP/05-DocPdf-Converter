@@ -31,4 +31,4 @@ jobs:
         with:
           args:
             -Dsonar.projectKey=doc-2-pdf-05
-            -Dsonar.organization=doc-to-pdf05
+            -Dsonar.organization=doc-to-pdf-05
