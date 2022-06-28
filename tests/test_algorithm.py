@@ -8,6 +8,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
+
 from env_consts import OS_SLASH
 
 
@@ -20,13 +21,15 @@ class AlgorithmTestCase(TestCase):
 
     def test_save_files_one_correct(self):
         """
-        test method for saving one correct file
+        test function for saving one correct file
 
         :return:
         """
 
         files = MultiValueDict()
-        with open(f"{self.root}{OS_SLASH}test1.docx", "a+", encoding="utf-8") as test_file:
+        with open(
+            f"{self.root}{OS_SLASH}test1.docx", "a+", encoding="utf-8"
+        ) as test_file:
             file = InMemoryUploadedFile(
                 file=test_file,
                 field_name=test_file,
@@ -49,13 +52,15 @@ class AlgorithmTestCase(TestCase):
 
     def test_save_files_two_correct(self):
         """
-        test method for saving two correct files
+        test function for saving two correct files
 
         :return:
         """
         files, opened_files = [], []
         for file_name in ["test1.docx", "test2.docx"]:
-            file = open(f"{self.root}{OS_SLASH}{f'{file_name}'}", "a+", encoding="utf-8")
+            file = open(
+                f"{self.root}{OS_SLASH}{f'{file_name}'}", "a+", encoding="utf-8"
+            )
             opened_files.append(file)
             files.append(
                 InMemoryUploadedFile(
@@ -85,7 +90,7 @@ class AlgorithmTestCase(TestCase):
 
     def test_get_converted_file_path_correct(self):
         """
-        test method for getting correct path to converted file
+        test function for getting correct path to converted file
         :return:
         """
         self.assertEqual(
@@ -96,13 +101,16 @@ class AlgorithmTestCase(TestCase):
 
     def test_zipping_one_correct(self):
         """
-        test method for zipping one file in directory
+        test function for zipping one file in directory
         :return:
         """
-        path_to_files = f"{self.root}{OS_SLASH}main/converted_files/0/"
+        path_to_files = (
+            f"{self.root}{OS_SLASH}main{OS_SLASH}converted_files{OS_SLASH}0{OS_SLASH}"
+        )
         files = glob.glob(f"{path_to_files}*")
         for file in files:
             os.remove(file)
+        os.makedirs(path_to_files, exist_ok=True)
         with open(f"{path_to_files}test1.pdf", "w", encoding="utf-8"):
             pass
         self.assertEqual(
@@ -112,14 +120,17 @@ class AlgorithmTestCase(TestCase):
 
     def test_zipping_two_correct(self):
         """
-        test method for zipping two files in directory
+        test function for zipping two files in directory
         :return:
         """
-        path_to_files = f"{self.root}{OS_SLASH}main/converted_files/1/"
+        path_to_files = (
+            f"{self.root}{OS_SLASH}main{OS_SLASH}converted_files{OS_SLASH}1{OS_SLASH}"
+        )
         files = glob.glob(f"{path_to_files}*")
         for file in files:
             os.remove(file)
         check_files = ["test2.pdf", "test3.pdf"]
+        os.makedirs(path_to_files, exist_ok=True)
         for file in check_files:
             with open(f"{path_to_files}{file}", "w", encoding="utf-8"):
                 pass
@@ -130,4 +141,41 @@ class AlgorithmTestCase(TestCase):
                 "result",
             ),
             ".zip",
+        )
+
+    def test_converting_one_file(self):
+        """
+        test function for converting one file
+        :return:
+        """
+        index = 0
+        path_to_files = (
+            f"{self.root}{OS_SLASH}main{OS_SLASH}files{OS_SLASH}{index}{OS_SLASH}"
+        )
+        os.makedirs(path_to_files, exist_ok=True)
+        files = ["test1.docx"]
+        with open(f"{path_to_files}test1.docx", "w", encoding="utf-8"):
+            pass
+        self.assertEqual(
+            main_a.convert(path_to_files, files, index),
+            f"{self.root}{OS_SLASH}main{OS_SLASH}converted_files{OS_SLASH}{index}{OS_SLASH}",
+        )
+
+    def test_converting_two_files(self):
+        """
+        test function for converting one file
+        :return:
+        """
+        index = 0
+        path_to_files = (
+            f"{self.root}{OS_SLASH}main{OS_SLASH}files{OS_SLASH}{index}{OS_SLASH}"
+        )
+        os.makedirs(path_to_files, exist_ok=True)
+        files = ["test1.docx", "test2.docx"]
+        for file in files:
+            with open(f"{path_to_files}{file}", "w", encoding="utf-8"):
+                pass
+        self.assertEqual(
+            main_a.convert(path_to_files, files, index),
+            f"{self.root}{OS_SLASH}main{OS_SLASH}converted_files{OS_SLASH}{index}{OS_SLASH}",
         )

@@ -8,7 +8,8 @@ from sys import platform
 from zipfile import ZipFile
 
 from django.http import HttpResponse
-from env_consts import OS_SLASH
+
+import env_consts as ec
 
 
 def save_files(files, last_id: int):
@@ -23,7 +24,9 @@ def save_files(files, last_id: int):
     """
 
     # File path to saving files.
-    file_path = f"{path.dirname(__file__)}{OS_SLASH}files{OS_SLASH}{last_id}{OS_SLASH}"
+    file_path = (
+        f"{path.dirname(__file__)}{ec.OS_SLASH}files{ec.OS_SLASH}{last_id}{ec.OS_SLASH}"
+    )
     converted_file_path = get_converted_file_path(last_id)
     makedirs(converted_file_path, exist_ok=True)
     # Allocate new directory if it doesn't exist.
@@ -127,7 +130,7 @@ def convert_windows(filepath: str, files, converted_file_path: str):
     if not files:
         return
     paths = resolve_paths(filepath, converted_file_path)
-    windows(paths)
+    windows(paths, files)
 
 
 def windows_convert_docx(
@@ -150,14 +153,16 @@ def windows_convert_docx(
     doc.Close(0)
 
 
-def windows(paths):
+def windows(paths, files):
     """
     Conversion algorithm for Windows OS.
 
     :param paths: paths
     :type paths: dict[str, Union[bool, str, Path]]
+    :param files: files for conversion
+    :type files: list of str
+    :return:
     """
-
     import win32com.client as w32c
     from servicemanager import CoInitializeEx
 
@@ -166,15 +171,10 @@ def windows(paths):
     word = w32c.Dispatch("Word.Application")
     # Format of PDF file.
     wd_format_pdf = 17
-    if paths["batch"]:
-        # Convert each file via word application.
-        for docx_filepath in Path(paths["input"]).glob("*.docx"):
-            pdf_filepath = Path(paths["output"]) / f"{docx_filepath.stem}.pdf"
-            windows_convert_docx(word, docx_filepath, pdf_filepath, wd_format_pdf)
-    else:
-        docx_filepath = Path(paths["input"]).resolve()
-        pdf_filepath = Path(paths["output"]).resolve()
-        # Convert file via word application.
+    # Convert each file via word application.
+    for file in files:
+        docx_filepath = Path(f"{paths['input']}{ec.OS_SLASH}{file}")
+        pdf_filepath = Path(paths["output"]) / f"{Path(docx_filepath).stem}.pdf"
         windows_convert_docx(word, docx_filepath, pdf_filepath, wd_format_pdf)
     # Close word application.
     word.Quit()
@@ -189,12 +189,23 @@ def get_converted_file_path(index: int):
     :rtype: str
     """
     # Path to converted files.
-    converted_file_path = (
-        f"{path.dirname(__file__)}{OS_SLASH}converted_files{OS_SLASH}{index}{OS_SLASH}"
-    )
+    converted_file_path = f"{path.dirname(__file__)}{ec.OS_SLASH}converted_files{ec.OS_SLASH}{index}{ec.OS_SLASH}"
     # Make this directory if it doesn't exist.
     makedirs(converted_file_path, exist_ok=True)
     return converted_file_path
+
+
+def install_libre():
+    """
+    install libre on environment
+    :return:
+    """
+    subprocess.run(
+        f"echo {ec.SYS_PWD}|sudo -S apt -y update && sudo -S apt -y install libreoffice",
+        shell=True,
+        check=True,
+    )
+    ec.INSTALLED_LIBRE = True
 
 
 def convert_linux(filepath: str, files, converted_file_path: str):
@@ -212,9 +223,14 @@ def convert_linux(filepath: str, files, converted_file_path: str):
     """
     if not files:
         return
-    cmd = f"cd {filepath}"
+    if not ec.INSTALLED_LIBRE:
+        install_libre()
+    exec_files = f"cd {filepath}"
     # For all files call lowriter for conversion (LibreOffice).
-    for file in files:
-        cmd += f" && lowriter --convert-to pdf {file} --outdir {converted_file_path}"
     # Execute all console commands.
-    subprocess.call(cmd, shell=True)
+    for file in files:
+        exec_files += (
+            f" && lowriter --headless --convert-to pdf "
+            f"{file} --outdir {converted_file_path}"
+        )
+    subprocess.run(exec_files, shell=True, check=True)
