@@ -20,6 +20,8 @@ class AlgorithmTestCase(TestCase):
     root = Path(path.dirname(__file__)).parent.absolute()
     first_docx = "test1.docx"
     second_docx = "test2.docx"
+
+
     def test_save_files_one_correct(self):
         """
         test function for saving one correct file
@@ -68,7 +70,7 @@ class AlgorithmTestCase(TestCase):
                     file=file,
                     field_name="files",
                     name=file_name,
-                    content_type="application/octet-stream",
+                    content_type=MimeTypes().guess_type(file_name),
                     size=87,
                     charset=None,
                 )
@@ -83,6 +85,45 @@ class AlgorithmTestCase(TestCase):
                     f"{self.root}{OS_SLASH}main{OS_SLASH}"
                     f"files{OS_SLASH}0{OS_SLASH}",
                     [self.first_docx, self.second_docx],
+                ),
+            )
+        finally:
+            for file in opened_files:
+                file.close()
+
+    def test_save_two_different_files(self):
+        """
+        test function for saving two different files
+
+        :return:
+        """
+        files, opened_files = [], []
+        files_list = [self.first_docx, "just.pdf"]
+        for file_name in files_list:
+            file = open(
+                f"{self.root}{OS_SLASH}{f'{file_name}'}", "a+", encoding="utf-8"
+            )
+            opened_files.append(file)
+            files.append(
+                InMemoryUploadedFile(
+                    file=file,
+                    field_name="files",
+                    name=file_name,
+                    content_type=MimeTypes().guess_type(file_name),
+                    size=87,
+                    charset=None,
+                )
+            )
+        files = MultiValueDict({"files": files})
+        http_request = HttpRequest()
+        http_request.FILES = files
+        try:
+            self.assertEqual(
+                main_a.save_files(http_request.FILES.getlist("files"), 0),
+                (
+                    f"{self.root}{OS_SLASH}main{OS_SLASH}"
+                    f"files{OS_SLASH}0{OS_SLASH}",
+                    [self.first_docx],
                 ),
             )
         finally:
@@ -144,9 +185,9 @@ class AlgorithmTestCase(TestCase):
             ".zip",
         )
 
-    def test_converting_one_file(self):
+    def test_converting_one_docx(self):
         """
-        test function for converting one file
+        test function for converting one docx
         :return:
         """
         index = 0
@@ -162,9 +203,9 @@ class AlgorithmTestCase(TestCase):
             f"{self.root}{OS_SLASH}main{OS_SLASH}converted_files{OS_SLASH}{index}{OS_SLASH}",
         )
 
-    def test_converting_two_files(self):
+    def test_converting_two_docx(self):
         """
-        test function for converting one file
+        test function for converting two docx
         :return:
         """
         index = 0
