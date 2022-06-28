@@ -1,5 +1,6 @@
 import glob
 import os
+from mimetypes import MimeTypes
 from os import path
 from pathlib import Path
 
@@ -37,7 +38,7 @@ class AlgorithmTestCase(TestCase):
                 file=test_file,
                 field_name=test_file,
                 name=self.first_docx,
-                content_type="application/octet-stream",
+                content_type=MimeTypes().guess_type(self.first_docx),
                 size=87,
                 charset=None,
             )
