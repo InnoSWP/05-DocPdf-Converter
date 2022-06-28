@@ -7,11 +7,11 @@
 ### Unit tests Django
 [![Django CI](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/django.yml/badge.svg)](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/django.yml)
 ### Sonar cloud
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=doc-2-pdf-05&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=doc-2-pdf-05)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=doc-2-pdf-05&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=doc-2-pdf-05)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=doc-2-pdf-05&metric=coverage)](https://sonarcloud.io/summary/new_code?id=doc-2-pdf-05)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=doc-2-pdf-05&metric=bugs)](https://sonarcloud.io/summary/new_code?id=doc-2-pdf-05)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=doc-2-pdf-05&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=doc-2-pdf-05)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=InnoSWP_05-DocPdf-Converter&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=InnoSWP_05-DocPdf-Converter)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=doc-2-pdf-05&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=doc-2-pdf-05)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=doc-2-pdf-05&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=doc-2-pdf-05)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=doc-2-pdf-05&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=doc-2-pdf-05)
