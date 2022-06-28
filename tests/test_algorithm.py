@@ -13,6 +13,30 @@ from django.utils.datastructures import MultiValueDict
 from env_consts import OS_SLASH
 
 
+def form_http_with_files(files_list):
+    files, opened_files = [], []
+    for file_name in files_list:
+        file = open(
+            f"{Path(path.dirname(__file__)).parent.absolute()}"
+            f"{OS_SLASH}{f'{file_name}'}", "a+", encoding="utf-8"
+        )
+        opened_files.append(file)
+        files.append(
+            InMemoryUploadedFile(
+                file=file,
+                field_name="files",
+                name=file_name,
+                content_type=MimeTypes().guess_type(file_name),
+                size=87,
+                charset=None,
+            )
+        )
+    files = MultiValueDict({"files": files})
+    http_request = HttpRequest()
+    http_request.FILES = files
+    return http_request.FILES.getlist("files"), opened_files
+
+
 class AlgorithmTestCase(TestCase):
     """
     class with all test algorithms
@@ -21,7 +45,6 @@ class AlgorithmTestCase(TestCase):
     root = Path(path.dirname(__file__)).parent.absolute()
     first_docx = "test1.docx"
     second_docx = "test2.docx"
-
 
     def test_save_files_one_correct(self):
         """
@@ -60,28 +83,11 @@ class AlgorithmTestCase(TestCase):
 
         :return:
         """
-        files, opened_files = [], []
-        for file_name in [self.first_docx, self.second_docx]:
-            file = open(
-                f"{self.root}{OS_SLASH}{f'{file_name}'}", "a+", encoding="utf-8"
-            )
-            opened_files.append(file)
-            files.append(
-                InMemoryUploadedFile(
-                    file=file,
-                    field_name="files",
-                    name=file_name,
-                    content_type=MimeTypes().guess_type(file_name),
-                    size=87,
-                    charset=None,
-                )
-            )
-        files = MultiValueDict({"files": files})
-        http_request = HttpRequest()
-        http_request.FILES = files
+        opened_files = [self.first_docx, self.second_docx]
+        files, opened_files = form_http_with_files(opened_files)
         try:
             self.assertEqual(
-                main_a.save_files(http_request.FILES.getlist("files"), 0),
+                main_a.save_files(files, 0),
                 (
                     f"{self.root}{OS_SLASH}main{OS_SLASH}"
                     f"files{OS_SLASH}0{OS_SLASH}",
@@ -98,29 +104,11 @@ class AlgorithmTestCase(TestCase):
 
         :return:
         """
-        files, opened_files = [], []
-        files_list = [self.first_docx, "just.pdf"]
-        for file_name in files_list:
-            file = open(
-                f"{self.root}{OS_SLASH}{f'{file_name}'}", "a+", encoding="utf-8"
-            )
-            opened_files.append(file)
-            files.append(
-                InMemoryUploadedFile(
-                    file=file,
-                    field_name="files",
-                    name=file_name,
-                    content_type=MimeTypes().guess_type(file_name),
-                    size=87,
-                    charset=None,
-                )
-            )
-        files = MultiValueDict({"files": files})
-        http_request = HttpRequest()
-        http_request.FILES = files
+        opened_files = [self.first_docx, "just.pdf"]
+        files, opened_files = form_http_with_files(opened_files)
         try:
             self.assertEqual(
-                main_a.save_files(http_request.FILES.getlist("files"), 0),
+                main_a.save_files(files, 0),
                 (
                     f"{self.root}{OS_SLASH}main{OS_SLASH}"
                     f"files{OS_SLASH}0{OS_SLASH}",
