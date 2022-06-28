@@ -30,5 +30,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args:
-            -Dsonar.projectKey=doc-2-pdf-05
-            -Dsonar.organization=doc-to-pdf-05
+            -Dsonar.projectKey=InnoSWP_05-DocPdf-Converter
+            -Dsonar.organization=innoswp
