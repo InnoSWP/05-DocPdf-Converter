@@ -26,7 +26,7 @@ class AlgorithmTestCase(TestCase):
         """
 
         files = MultiValueDict()
-        with open(f"{self.root}{OS_SLASH}test1.docx", "rb") as test_file:
+        with open(f"{self.root}{OS_SLASH}test1.docx", "a+", encoding="utf-8") as test_file:
             file = InMemoryUploadedFile(
                 file=test_file,
                 field_name=test_file,
@@ -55,7 +55,7 @@ class AlgorithmTestCase(TestCase):
         """
         files, opened_files = [], []
         for file_name in ["test1.docx", "test2.docx"]:
-            file = open(f"{self.root}{OS_SLASH}{f'{file_name}'}", "rb")
+            file = open(f"{self.root}{OS_SLASH}{f'{file_name}'}", "a+", encoding="utf-8")
             opened_files.append(file)
             files.append(
                 InMemoryUploadedFile(
