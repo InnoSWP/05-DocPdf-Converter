@@ -18,7 +18,8 @@ class AlgorithmTestCase(TestCase):
     """
 
     root = Path(path.dirname(__file__)).parent.absolute()
-
+    first_docx = "test1.docx"
+    second_docx = "test2.docx"
     def test_save_files_one_correct(self):
         """
         test function for saving one correct file
@@ -28,12 +29,12 @@ class AlgorithmTestCase(TestCase):
 
         files = MultiValueDict()
         with open(
-            f"{self.root}{OS_SLASH}test1.docx", "a+", encoding="utf-8"
+            f"{self.root}{OS_SLASH}{self.first_docx}", "a+", encoding="utf-8"
         ) as test_file:
             file = InMemoryUploadedFile(
                 file=test_file,
                 field_name=test_file,
-                name="test1.docx",
+                name=self.first_docx,
                 content_type="application/octet-stream",
                 size=87,
                 charset=None,
@@ -46,7 +47,7 @@ class AlgorithmTestCase(TestCase):
                 (
                     f"{self.root}{OS_SLASH}main{OS_SLASH}"
                     f"files{OS_SLASH}0{OS_SLASH}",
-                    ["test1.docx"],
+                    [self.first_docx],
                 ),
             )
 
@@ -57,7 +58,7 @@ class AlgorithmTestCase(TestCase):
         :return:
         """
         files, opened_files = [], []
-        for file_name in ["test1.docx", "test2.docx"]:
+        for file_name in [self.first_docx, self.second_docx]:
             file = open(
                 f"{self.root}{OS_SLASH}{f'{file_name}'}", "a+", encoding="utf-8"
             )
@@ -81,7 +82,7 @@ class AlgorithmTestCase(TestCase):
                 (
                     f"{self.root}{OS_SLASH}main{OS_SLASH}"
                     f"files{OS_SLASH}0{OS_SLASH}",
-                    ["test1.docx", "test2.docx"],
+                    [self.first_docx, self.second_docx],
                 ),
             )
         finally:
@@ -153,7 +154,7 @@ class AlgorithmTestCase(TestCase):
             f"{self.root}{OS_SLASH}main{OS_SLASH}files{OS_SLASH}{index}{OS_SLASH}"
         )
         os.makedirs(path_to_files, exist_ok=True)
-        files = ["test1.docx"]
+        files = [self.first_docx]
         with open(f"{path_to_files}test1.docx", "w", encoding="utf-8"):
             pass
         self.assertEqual(
@@ -171,7 +172,7 @@ class AlgorithmTestCase(TestCase):
             f"{self.root}{OS_SLASH}main{OS_SLASH}files{OS_SLASH}{index}{OS_SLASH}"
         )
         os.makedirs(path_to_files, exist_ok=True)
-        files = ["test1.docx", "test2.docx"]
+        files = [self.first_docx, self.second_docx]
         for file in files:
             with open(f"{path_to_files}{file}", "w", encoding="utf-8"):
                 pass
