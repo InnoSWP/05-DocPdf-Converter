@@ -14,11 +14,20 @@ from env_consts import OS_SLASH
 
 
 def form_http_with_files(files_list):
+    """
+    form http and get files from it
+
+    :param files_list: list of files
+    :type files_list: list of str
+    :return:
+    """
     files, opened_files = [], []
     for file_name in files_list:
         file = open(
             f"{Path(path.dirname(__file__)).parent.absolute()}"
-            f"{OS_SLASH}{f'{file_name}'}", "a+", encoding="utf-8"
+            f"{OS_SLASH}{f'{file_name}'}",
+            "a+",
+            encoding="utf-8",
         )
         opened_files.append(file)
         files.append(
