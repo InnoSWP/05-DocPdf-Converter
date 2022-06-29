@@ -42,6 +42,7 @@ class ApiTestCase(TestCase):
             resp = self.client.post(
                 "/convert/", {"name": "fred", "files": files, "attachment": files}
             )
+        self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.headers["files"], "attachment; filename=result_1.pdf")
 
     def test_convert_get_local(self):
