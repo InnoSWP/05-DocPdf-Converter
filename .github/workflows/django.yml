@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python3 manage.py migrate
-        python3 manage.py makemigrations
+        python manage.py migrate
+        python manage.py makemigrations
         python manage.py makemigrations main
         python manage.py test
