@@ -1,0 +1,6 @@
+[coverage:run]
+source = ./main
+
+[coverage:report]
+fail_under = 100
+show_missing = True

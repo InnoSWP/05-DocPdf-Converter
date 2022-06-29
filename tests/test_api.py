@@ -1,13 +1,11 @@
 import os
 from pathlib import Path
 
-import pytest
 from django.test import TestCase
 
 from env_consts import OS_SLASH
 
 
-@pytest.mark.django_db
 class ApiTestCase(TestCase):
     """
     class with all test algorithms

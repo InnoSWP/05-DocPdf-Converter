@@ -4,15 +4,13 @@ from mimetypes import MimeTypes
 from os import path
 from pathlib import Path
 
-import pytest
-
 import main.algorithm as main_a
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoApp.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "docToPdf.settings")
 
 from env_consts import OS_SLASH
 from main.api import ConvertApi
@@ -64,7 +62,6 @@ def form_http_with_files(files_list):
     return http_request.FILES.getlist("files"), opened_files
 
 
-@pytest.mark.django_db
 class AlgorithmTestCase(TestCase):
     """
     class with all test algorithms
