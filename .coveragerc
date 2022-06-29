@@ -3,5 +3,4 @@ source = ./main
 omit = main/customers_code.py
 
 [coverage:report]
-fail_under = 100
 show_missing = True

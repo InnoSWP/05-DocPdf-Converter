@@ -1,4 +1,5 @@
 import os
+import random
 from pathlib import Path
 
 from django.test import TestCase
@@ -63,7 +64,8 @@ class ApiTestCase(TestCase):
         :return:
         """
         response = self.client.get(
-            "/convert/", follow=True, HTTP_X_FORWARDED_FOR="189.130.155.154"
+            "/convert/", follow=True, HTTP_X_FORWARDED_FOR=".".join(map(str, (random.randint(0, 255)
+                        for _ in range(4))))
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers["Content-Type"], "application/json")
