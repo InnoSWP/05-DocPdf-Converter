@@ -1,5 +1,6 @@
 [coverage:run]
 source = ./main
+omit = main/customers_code.py
 
 [coverage:report]
 fail_under = 100
