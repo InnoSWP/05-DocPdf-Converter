@@ -14,4 +14,4 @@ def get_os_slash():
 
 OS_SLASH = get_os_slash()
 INSTALLED_LIBRE = False
-SYS_PWD = "12345"
+SYS_PWD = "Prince1957"
