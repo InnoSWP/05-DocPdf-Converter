@@ -14,11 +14,12 @@ class ConvertApi(generics.GenericAPIView):
     """
     Main class for Convertor API.
 
-    :param serializer_class: serializer of  :class:`models.Conversion`
-    :param queryset: set of serialized objects
+    :serializer_class: serializer of  :class:`models.Conversion`
+    :queryset: set of serialized objects
     """
 
     serializer_class = ConvertSerializer
+    queryset = Conversion.objects.all()
 
     def post(self, request):
         """
@@ -47,7 +48,6 @@ class ConvertApi(generics.GenericAPIView):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             files = request.FILES.getlist("files")
-            print(files)
             Conversion().save()
             # Get this conversion operation id.
             last_id = Conversion.objects.latest("id").id
