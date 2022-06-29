@@ -7,7 +7,7 @@ import pytest
 from env_consts import OS_SLASH
 
 
-@pytest.mark.django_db(transaction=True)
+@pytest.mark.transactional_db
 class ApiTestCase(TestCase):
     """
     class with all test algorithms
