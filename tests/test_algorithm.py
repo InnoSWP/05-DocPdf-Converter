@@ -4,6 +4,8 @@ from mimetypes import MimeTypes
 from os import path
 from pathlib import Path
 
+import pytest
+
 import main.algorithm as main_a
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpRequest
@@ -62,6 +64,7 @@ def form_http_with_files(files_list):
     return http_request.FILES.getlist("files"), opened_files
 
 
+@pytest.mark.django_db
 class AlgorithmTestCase(TestCase):
     """
     class with all test algorithms

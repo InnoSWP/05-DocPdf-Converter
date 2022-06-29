@@ -1,13 +1,13 @@
 import os
 from pathlib import Path
 
-from django.test import TestCase
 import pytest
+from django.test import TestCase
 
 from env_consts import OS_SLASH
 
 
-@pytest.mark.transactional_db
+@pytest.mark.django_db
 class ApiTestCase(TestCase):
     """
     class with all test algorithms
