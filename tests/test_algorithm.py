@@ -10,10 +10,7 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "docToPdf.settings")
-
 from env_consts import OS_SLASH
-from main.api import ConvertApi
 
 
 def get_files_from_names(files_list):
