@@ -30,6 +30,6 @@ class Converter(models.Model):
     """
 
     files = models.FileField(
-        help_text="Add files that you want to convert.", default=None, null=False
+        help_text="Add files that you want to convert.", default=None, null=False,
     )
     upload = models.ForeignKey(Upload, related_name="files", on_delete=models.CASCADE)

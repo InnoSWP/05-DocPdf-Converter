@@ -14,12 +14,12 @@ class ConvertApi(generics.GenericAPIView):
     """
     Main class for Convertor API.
 
-    :serializer_class: serializer of  :class:`models.Conversion`
-    :queryset: set of serialized objects
+    :param serializer_class: serializer of  :class:`models.Conversion`
+    :param queryset: set of serialized objects
     """
 
     serializer_class = ConvertSerializer
-    queryset = Conversion.objects.all()
+    last_id = Conversion.objects.latest("id").id
 
     def post(self, request):
         """
@@ -34,9 +34,9 @@ class ConvertApi(generics.GenericAPIView):
         if True:
             # if 'HTTP_TOKEN' in request.META and len(request.META['HTTP_TOKEN']):
             if (
-                    "files" not in request.data
-                    or "files" in request.data
-                    and not request.data["files"]
+                "files" not in request.data
+                or "files" in request.data
+                and not request.data["files"]
             ):
                 return Response(
                     {
@@ -50,10 +50,10 @@ class ConvertApi(generics.GenericAPIView):
             files = request.FILES.getlist("files")
             Conversion().save()
             # Get this conversion operation id.
-            last_id = Conversion.objects.latest("id").id
+            self.last_id = Conversion.objects.latest("id").id
             acceptable_types = ["docx", "pdf"]
             # Save files and get the path to them.
-            file_path, files_to_convert = save_files(files, last_id)
+            file_path, files_to_convert = save_files(files, self.last_id)
             # Save all filenames from request.
             # Iterate through files to get file names .
             for file in files:
@@ -61,7 +61,7 @@ class ConvertApi(generics.GenericAPIView):
                 # Save acceptable file names.
                 # If one of the files is not acceptable, return 400 status response.
                 if not any(
-                        acceptable_type in file.name for acceptable_type in acceptable_types
+                    acceptable_type in file.name for acceptable_type in acceptable_types
                 ):
                     shutil.rmtree(file_path)
                     return Response(
@@ -72,9 +72,9 @@ class ConvertApi(generics.GenericAPIView):
                         status=status.HTTP_400_BAD_REQUEST,
                     )
             # Convert files and get the path to result.
-            converted_file_path = convert(file_path, files_to_convert, last_id)
+            converted_file_path = convert(file_path, files_to_convert, self.last_id)
             # Name of the zip with a result of conversion.
-            zip_name = f"result_{last_id}"
+            zip_name = f"result_{self.last_id}"
             # Save all filenames from the request.
             # Get formatted response for file.
             response = get_file_response(
