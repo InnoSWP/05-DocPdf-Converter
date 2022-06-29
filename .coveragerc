@@ -1,5 +1,5 @@
 [coverage:run]
-source = ./main
+source = .
 omit = main/customers_code.py
 
 [coverage:report]
