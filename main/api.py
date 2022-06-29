@@ -1,5 +1,4 @@
 import shutil
-import time
 
 from django.shortcuts import render
 from rest_framework import generics, status
@@ -20,6 +19,7 @@ class ConvertApi(generics.GenericAPIView):
     """
 
     serializer_class = ConvertSerializer
+    last_id = Conversion.objects.latest("id").id
 
     def post(self, request):
         """
@@ -50,10 +50,10 @@ class ConvertApi(generics.GenericAPIView):
             files = request.FILES.getlist("files")
             Conversion().save()
             # Get this conversion operation id.
-            last_id = Conversion.objects.latest("id").id
+            self.last_id = Conversion.objects.latest("id").id
             acceptable_types = ["docx", "pdf"]
             # Save files and get the path to them.
-            file_path, files_to_convert = save_files(files, last_id)
+            file_path, files_to_convert = save_files(files, self.last_id)
             # Save all filenames from request.
             # Iterate through files to get file names .
             for file in files:
@@ -72,9 +72,9 @@ class ConvertApi(generics.GenericAPIView):
                         status=status.HTTP_400_BAD_REQUEST,
                     )
             # Convert files and get the path to result.
-            converted_file_path = convert(file_path, files_to_convert, last_id)
+            converted_file_path = convert(file_path, files_to_convert, self.last_id)
             # Name of the zip with a result of conversion.
-            zip_name = f"result_{last_id}"
+            zip_name = f"result_{self.last_id}"
             # Save all filenames from the request.
             # Get formatted response for file.
             response = get_file_response(

@@ -10,15 +10,16 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.datastructures import MultiValueDict
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoApp.settings")
+
 from env_consts import OS_SLASH
+from main.api import ConvertApi
 
 
-def form_http_with_files(files_list):
+def get_files_from_names(files_list):
     """
-    form http and get files from it
 
-    :param files_list: list of files
-    :type files_list: list of str
+    :param files_list:
     :return:
     """
     files, opened_files = [], []
@@ -36,11 +37,26 @@ def form_http_with_files(files_list):
                 field_name="files",
                 name=file_name,
                 content_type=MimeTypes().guess_type(file_name),
-                size=87,
+                size=os.stat(
+                    f"{Path(path.dirname(__file__)).parent.absolute()}"
+                    f"{OS_SLASH}{f'{file_name}'}"
+                ).st_size,
                 charset=None,
             )
         )
     files = MultiValueDict({"files": files})
+    return files, opened_files
+
+
+def form_http_with_files(files_list):
+    """
+    form http and get files from it
+
+    :param files_list: list of files
+    :type files_list: list of str
+    :return:
+    """
+    files, opened_files = get_files_from_names(files_list)
     http_request = HttpRequest()
     http_request.FILES = files
     return http_request.FILES.getlist("files"), opened_files
