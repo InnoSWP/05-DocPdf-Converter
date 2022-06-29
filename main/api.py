@@ -1,9 +1,7 @@
 import shutil
-import time
 
 from django.shortcuts import render
 from rest_framework import generics, status
-from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 
 from .algorithm import convert, get_file_response, save_files, zip_files_in_dir
@@ -106,7 +104,7 @@ class ConvertApi(generics.GenericAPIView):
         """
         if self.request_from_local(request):
             return render(request, "main/index.html", {})
-        return MethodNotAllowed(request.method, detail=None, code=None)
+        return Response(ConvertSerializer().data)
 
     @staticmethod
     def get_request_from(request) -> str:
