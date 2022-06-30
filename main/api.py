@@ -2,12 +2,19 @@ import shutil
 
 from django.shortcuts import render
 from rest_framework import generics, status
-from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 
 from .algorithm import convert, get_file_response, save_files, zip_files_in_dir
-from .models import Conversion
 from .serializers import ConvertSerializer
+
+
+def get_init_id():
+    with open("last_operation.txt", "a+", encoding="utf-8") as file:
+        line = file.readline()
+        if not line:
+            file.write("0")
+            return 0
+        return int(line)
 
 
 class ConvertApi(generics.GenericAPIView):
@@ -19,7 +26,7 @@ class ConvertApi(generics.GenericAPIView):
     """
 
     serializer_class = ConvertSerializer
-    last_id = Conversion.objects.latest("id").id
+    last_id = get_init_id()
 
     def post(self, request):
         """
@@ -48,9 +55,10 @@ class ConvertApi(generics.GenericAPIView):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             files = request.FILES.getlist("files")
-            Conversion().save()
             # Get this conversion operation id.
-            self.last_id = Conversion.objects.latest("id").id
+            self.last_id += 1
+            with open("last_operation.txt", "w", encoding="utf-8") as file:
+                file.write(str(self.last_id))
             acceptable_types = ["docx", "pdf"]
             # Save files and get the path to them.
             file_path, files_to_convert = save_files(files, self.last_id)
@@ -106,7 +114,7 @@ class ConvertApi(generics.GenericAPIView):
         """
         if self.request_from_local(request):
             return render(request, "main/index.html", {})
-        return MethodNotAllowed(request.method, detail=None, code=None)
+        return Response(ConvertSerializer().data)
 
     @staticmethod
     def get_request_from(request) -> str:

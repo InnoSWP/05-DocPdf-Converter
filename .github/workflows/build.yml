@@ -21,6 +21,8 @@ jobs:
         run: pip install tox
       - name: Run tox
         run: tox -e py
+      - name: Fix of source
+        run: sed -i 's/\/home\/runner\/work\/05-DocPdf-Converter\/05-DocPdf-Converter\//\/github\/workspace\//g' coverage.xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

@@ -189,7 +189,8 @@ def get_converted_file_path(index: int):
     :rtype: str
     """
     # Path to converted files.
-    converted_file_path = f"{path.dirname(__file__)}{ec.OS_SLASH}converted_files{ec.OS_SLASH}{index}{ec.OS_SLASH}"
+    converted_file_path = f"{path.dirname(__file__)}{ec.OS_SLASH}" \
+                          f"converted_files{ec.OS_SLASH}{index}{ec.OS_SLASH}"
     # Make this directory if it doesn't exist.
     makedirs(converted_file_path, exist_ok=True)
     return converted_file_path
@@ -224,7 +225,14 @@ def convert_linux(filepath: str, files, converted_file_path: str):
     if not files:
         return
     if not ec.INSTALLED_LIBRE:
-        install_libre()
+        with subprocess.Popen(
+            "apt list -a libreoffice",
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        ) as process:
+            if "installed" not in process.communicate()[0].decode("utf-8"):
+                install_libre()
     exec_files = f"cd {filepath}"
     # For all files call lowriter for conversion (LibreOffice).
     # Execute all console commands.

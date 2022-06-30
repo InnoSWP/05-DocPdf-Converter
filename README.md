@@ -44,7 +44,7 @@
 2. python manage.py migrate
 3. python manage.py makemigrations
 4. python manage.py makemigrations main
-5. python3 manage.py migrate
+5. python manage.py migrate
 6. python manage.py runserver
 
 ### You can also add server runner to your configs. To that, follow this steps (PyCharm)

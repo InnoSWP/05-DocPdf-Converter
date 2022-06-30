@@ -1,12 +1,9 @@
 import os
+import random
 from pathlib import Path
 
 from django.test import TestCase
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoApp.settings")
-import django
-
-django.setup()
 from env_consts import OS_SLASH
 
 
@@ -33,7 +30,7 @@ class ApiTestCase(TestCase):
         )
         for file in files:
             file.close()
-        self.assertEqual(resp.headers["files"], f"attachment; filename=result_1.zip")
+        self.assertEqual(resp.headers["files"], "attachment; filename=result_1.zip")
 
     def test_convert_post_one(self):
         """
@@ -46,4 +43,29 @@ class ApiTestCase(TestCase):
             resp = self.client.post(
                 "/convert/", {"name": "fred", "files": files, "attachment": files}
             )
-        self.assertEqual(resp.headers["files"], f"attachment; filename=result_1.pdf")
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.headers["files"], "attachment; filename=result_1.pdf")
+
+    def test_convert_get_local(self):
+        """
+        test method for local get requests on API
+
+        :return:
+        """
+
+        response = self.client.get("/convert/", follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers["Content-Type"], "text/html; charset=utf-8")
+
+    def test_convert_get_not_local(self):
+        """
+        test method for not local get requests on API
+
+        :return:
+        """
+        response = self.client.get(
+            "/convert/", follow=True, HTTP_X_FORWARDED_FOR=".".join(map(str, (random.randint(0, 255)
+                        for _ in range(4))))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers["Content-Type"], "application/json")
