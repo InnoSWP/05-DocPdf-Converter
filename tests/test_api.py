@@ -15,6 +15,7 @@ class ApiTestCase(TestCase):
     root = Path(os.path.dirname(__file__)).parent.absolute()
     first_docx = "test1.docx"
     second_docx = "test2.docx"
+    convert_link = "/convert/"
 
     def test_convert_post_several(self):
         """
@@ -26,7 +27,7 @@ class ApiTestCase(TestCase):
         for file_name in ["1.docx", "2.docx", "3.docx", "4.docx"]:
             files.append(open(f"{self.root}{OS_SLASH}{file_name}", "rb"))
         resp = self.client.post(
-            "/convert/", {"name": "fred", "files": files, "attachment": files}
+            self.convert_link, {"name": "fred", "files": files, "attachment": files}
         )
         for file in files:
             file.close()
@@ -41,7 +42,7 @@ class ApiTestCase(TestCase):
         file_name = "1.docx"
         with open(f"{self.root}{OS_SLASH}{file_name}", "rb") as files:
             resp = self.client.post(
-                "/convert/", {"name": "fred", "files": files, "attachment": files}
+                self.convert_link, {"name": "fred", "files": files, "attachment": files}
             )
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.headers["files"], "attachment; filename=result_1.pdf")
@@ -53,7 +54,7 @@ class ApiTestCase(TestCase):
         :return:
         """
 
-        response = self.client.get("/convert/", follow=True)
+        response = self.client.get(self.convert_link, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers["Content-Type"], "text/html; charset=utf-8")
 
@@ -64,7 +65,7 @@ class ApiTestCase(TestCase):
         :return:
         """
         response = self.client.get(
-            "/convert/", follow=True, HTTP_X_FORWARDED_FOR=".".join(map(str, (random.randint(0, 255)
+            self.convert_link, follow=True, HTTP_X_FORWARDED_FOR=".".join(map(str, (random.randint(0, 255)
                         for _ in range(4))))
         )
         self.assertEqual(response.status_code, 200)
