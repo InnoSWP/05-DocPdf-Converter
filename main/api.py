@@ -9,10 +9,9 @@ from .serializers import ConvertSerializer
 
 
 def get_init_id():
-    with open("last_operation.txt", "a+", encoding="utf-8") as file:
-        line = file.readline()
+    with open("last_operation.txt", "r", encoding="utf-8") as file:
+        line = file.read()
         if not line:
-            file.write("0")
             return 0
         return int(line)
 
@@ -26,7 +25,6 @@ class ConvertApi(generics.GenericAPIView):
     """
 
     serializer_class = ConvertSerializer
-    last_id = get_init_id()
 
     def post(self, request):
         """
@@ -56,13 +54,13 @@ class ConvertApi(generics.GenericAPIView):
             serializer.is_valid(raise_exception=True)
             files = request.FILES.getlist("files")
             # Get this conversion operation id.
-            self.last_id += 1
+            last_id = get_init_id()
             with open("last_operation.txt", "w", encoding="utf-8") as file:
-                file.write(str(self.last_id))
+                file.write(str(last_id + 1))
             acceptable_types = ["docx", "pdf"]
             #
             # Save files and get the path to them.
-            file_path, files_to_convert = save_files(files, self.last_id)
+            file_path, files_to_convert = save_files(files, last_id)
             # Save all filenames from request.
             # Iterate through files to get file names .
             for file in files:
@@ -81,9 +79,9 @@ class ConvertApi(generics.GenericAPIView):
                         status=status.HTTP_400_BAD_REQUEST,
                     )
             # Convert files and get the path to result.
-            converted_file_path = convert(file_path, files_to_convert, self.last_id)
+            converted_file_path = convert(file_path, files_to_convert, last_id)
             # Name of the zip with a result of conversion.
-            zip_name = f"result_{self.last_id}"
+            zip_name = f"result_{last_id}"
             # Save all filenames from the request.
             # Get formatted response for file.
             response = get_file_response(
