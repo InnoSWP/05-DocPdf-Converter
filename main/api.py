@@ -5,7 +5,6 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 
 from .algorithm import convert, get_file_response, save_files, zip_files_in_dir
-from .models import Conversion
 from .serializers import ConvertSerializer
 
 
