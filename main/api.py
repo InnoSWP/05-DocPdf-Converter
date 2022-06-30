@@ -60,6 +60,7 @@ class ConvertApi(generics.GenericAPIView):
             with open("last_operation.txt", "w", encoding="utf-8") as file:
                 file.write(str(self.last_id))
             acceptable_types = ["docx", "pdf"]
+            #
             # Save files and get the path to them.
             file_path, files_to_convert = save_files(files, self.last_id)
             # Save all filenames from request.
