@@ -210,7 +210,8 @@ class AlgorithmTestCase(TestCase):
         with open(f"{path_to_files}test1.docx", "w", encoding="utf-8"):
             pass
         self.assertEqual(
-            main_a.convert(path_to_files, files, index, {".docx": True, ".xlsx": False, ".pdf": False}),
+            main_a.convert(path_to_files, files, index, {".docx": True, ".xlsx": False,
+                                                         ".pdf": False, ".doc": False, ".xls": False}),
             f"{self.root}{OS_SLASH}main{OS_SLASH}converted_files{OS_SLASH}{index}{OS_SLASH}",
         )
 
@@ -229,6 +230,6 @@ class AlgorithmTestCase(TestCase):
             with open(f"{path_to_files}{file}", "w", encoding="utf-8"):
                 pass
         self.assertEqual(
-            main_a.convert(path_to_files, files, index, {".docx": True, ".xlsx": False, ".pdf": False}),
+            main_a.convert(path_to_files, files, index, {".docx": True, ".xlsx": False, ".pdf": False, ".doc": False, ".xls": False}),
             f"{self.root}{OS_SLASH}main{OS_SLASH}converted_files{OS_SLASH}{index}{OS_SLASH}",
         )

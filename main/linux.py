@@ -1,5 +1,5 @@
 import subprocess
-import time
+
 from os import makedirs
 
 import env_consts as ec
@@ -32,7 +32,6 @@ def convert_linux(filepath: str, files, converted_file_path: str, has_type_in_re
     :return: path to converted files
     :rtype: str
     """
-    start = time.time()
     if not files:
         return
     if not ec.INSTALLED_LIBRE:
@@ -46,12 +45,10 @@ def convert_linux(filepath: str, files, converted_file_path: str, has_type_in_re
                 install_libre()
 
     command = f"cd {filepath}"
-    if has_type_in_request[".docx"]:
-        command += f"&& lowriter --headless --convert-to pdf *.docx --outdir {converted_file_path}"
-    if has_type_in_request[".xlsx"]:
-        command += f"&& lowriter --headless --convert-to pdf *.xlsx --outdir {converted_file_path}"
+    for type_in in has_type_in_request:
+        if has_type_in_request[type_in] and type_in is not ".pdf":
+            command += f"&& lowriter --headless --convert-to pdf *{type_in} --outdir {converted_file_path}"
     makedirs(converted_file_path, exist_ok=True)
     # For all files call lowriter for conversion (LibreOffice).
     # Execute all console commands.
     subprocess.run(command, shell=True, check=True)
-    print(time.time() - start)
