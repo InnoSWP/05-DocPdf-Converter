@@ -1,6 +1,7 @@
 import os
 import shutil
 from os import path
+from pathlib import Path
 
 from django.shortcuts import render
 from rest_framework import generics, status
@@ -25,7 +26,7 @@ def get_init_id():
     :return: id
     :rtype: int
     """
-    with open("last_operation.txt", "r", encoding="utf-8") as file:
+    with open(ec.LAST_OP_FILE, "r", encoding="utf-8") as file:
         line = file.read()
         if not line:
             return 0
@@ -73,9 +74,10 @@ class ConvertApi(generics.GenericAPIView):
                 serializer = self.get_serializer(data=request.data)
                 serializer.is_valid(raise_exception=True)
                 files = request.FILES.getlist("files")
-                # Get this conversion operation id.
+                Path(ec.LAST_OP_FILE).touch(exist_ok=True)
                 init_id = get_init_id()
-                with open("last_operation.txt", "w", encoding="utf-8") as file:
+                # Get this conversion operation id.
+                with open(ec.LAST_OP_FILE, "w", encoding="utf-8") as file:
                     file.write(str(init_id + 1))
                 last_id = get_init_id()
                 acceptable_types = {".docx": False, ".xlsx": False, ".pdf": False}
