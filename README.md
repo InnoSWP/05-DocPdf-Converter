@@ -20,7 +20,7 @@
 
 ## Project Description
 ### This is the project with user-friendly and simple interface that perform converting files with .doc/.docx extention to PDF on local Windows/Linux server
-* Each of the algorithms (both for Windows and Linux) uses the built-in functions of programs-viewers (such as [**Microsoft Word**](https://en.wikipedia.org/wiki/Microsoft_Word) for Windows and [**LibreOffice Writer**](https://en.wikipedia.org/wiki/LibreOffice_Writer) for Linux) to convert files with .doc/.docx extension to PDFs with minimum conversional errors.
+* Each of the algorithms (both for Windows and Linux) uses the built-in functions of programs-viewers (such as [**Microsoft Word**](https://en.wikipedia.org/wiki/Microsoft_Word) for Windows and [**LibreOffice Writer**](https://en.wikipedia.org/wiki/LibreOffice_Writer) for Linux) to convert files with .doc/.docx extension to PDFs with minimum errors of conversion.
 * All files after the conversion are returned in archive with PDFs (if there are more than one file) or as a single PDF file otherwise.
 * In case if the user will choose file(-s) with ".pdf" extension, then the program will send them back **=)**.
 
@@ -28,13 +28,14 @@
 ### To set up the project, set your virtual env using the commands in this order (Ubuntu)
 1. sudo apt install python3
 2. sudo apt install python3-venv
-3. python3 -m venv venv
-4. source venv/bin/activate
-5. pip install -r requirements.txt
-6. python3 manage.py migrate
-7. python3 manage.py makemigrations
-8. python3 manage.py makemigrations main
-9. python3 manage.py migrate
+3. sudo -S apt -y update && sudo -S apt -y install libreoffice
+4. python3 -m venv venv
+5. source venv/bin/activate
+6. pip install -r requirements.txt
+7. python3 manage.py migrate
+8. python3 manage.py makemigrations
+9. python3 manage.py makemigrations main
+10. python3 manage.py migrate
 
 *One command format:*
 **sudo apt install python3 && sudo apt install python3-venv && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python3 manage.py migrate && python3 manage.py makemigrations && python3 manage.py makemigrations main && python3 manage.py migrate**
