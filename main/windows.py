@@ -1,8 +1,5 @@
 from pathlib import Path
 
-import win32com.client as w32c
-from servicemanager import CoInitializeEx
-
 import env_consts as ec
 
 
@@ -74,6 +71,8 @@ def windows(paths, files, has_type_in_request: dict):
     :type files: list of str
     :return:
     """
+    import win32com.client as w32c
+    from servicemanager import CoInitializeEx
 
     CoInitializeEx(0)
     # Open word application for conversion.
