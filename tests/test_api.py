@@ -5,6 +5,7 @@ from pathlib import Path
 from django.test import TestCase
 
 from env_consts import OS_SLASH
+from main.api import get_init_id
 
 
 class ApiTestCase(TestCase):
@@ -31,7 +32,7 @@ class ApiTestCase(TestCase):
         )
         for file in files:
             file.close()
-        self.assertEqual(resp.headers["files"], "attachment; filename=result_1.zip")
+        self.assertEqual(resp.headers["files"], f"attachment; filename=result_{get_init_id()}.zip")
 
     def test_convert_post_one(self):
         """
@@ -45,7 +46,7 @@ class ApiTestCase(TestCase):
                 self.convert_link, {"name": "fred", "files": files, "attachment": files}
             )
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(resp.headers["files"], "attachment; filename=result_1.pdf")
+        self.assertEqual(resp.headers["files"], f"attachment; filename=result_{get_init_id()}.pdf")
 
     def test_convert_get_local(self):
         """
@@ -65,8 +66,9 @@ class ApiTestCase(TestCase):
         :return:
         """
         response = self.client.get(
-            self.convert_link, follow=True, HTTP_X_FORWARDED_FOR=".".join(map(str, (random.randint(0, 255)
-                        for _ in range(4))))
+            self.convert_link, follow=True, HTTP_X_FORWARDED_FOR=".".join(map(str,
+                                          (random.randint(0, 255) for _ in
+                                           range(4))))
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers["Content-Type"], "application/json")
