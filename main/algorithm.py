@@ -189,10 +189,12 @@ def windows(paths, files, has_type_in_request: dict):
     # Open word application for conversion.
     word = None
     excel = None
-    if has_type_in_request[".docx"]:
+    docx_type = ".docx"
+    xlsx_type = ".xlsx"
+    if has_type_in_request[docx_type]:
         word = w32c.Dispatch("Word.Application")
     # Open excel application for conversion.
-    if has_type_in_request[".xlsx"]:
+    if has_type_in_request[xlsx_type]:
         excel = w32c.Dispatch("Excel.Application")
     # Format of PDF file.
     wd_format_pdf = 17
@@ -202,15 +204,15 @@ def windows(paths, files, has_type_in_request: dict):
         pdf_filepath = (
             f"{paths['output']}{ec.OS_SLASH}{Path(document_filepath).stem}.pdf"
         )
-        if ".docx" in file:
+        if docx_type in file:
             windows_convert_docx(word, document_filepath, pdf_filepath, wd_format_pdf)
-        elif ".xlsx" in file:
+        elif xlsx_type in file:
             windows_convert_xlsx(excel, document_filepath, pdf_filepath)
     # Close word application.
-    if has_type_in_request[".docx"]:
+    if has_type_in_request[docx_type]:
         word.Quit()
     # Close excel application.
-    if has_type_in_request[".xlsx"]:
+    if has_type_in_request[xlsx_type]:
         excel.Quit()
 
 
@@ -243,10 +245,6 @@ def install_libre():
         check=True,
     )
     ec.INSTALLED_LIBRE = True
-
-
-def convert_one_linux():
-    pass
 
 
 def convert_linux(filepath: str, files, converted_file_path: str, has_type_in_request):
