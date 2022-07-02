@@ -1,8 +1,6 @@
-import subprocess
 from mimetypes import MimeTypes
 from os import makedirs, path, rename
 from os.path import basename
-from pathlib import Path
 from shutil import copyfileobj
 from sys import platform
 from zipfile import ZipFile
@@ -10,6 +8,8 @@ from zipfile import ZipFile
 from django.http import HttpResponse
 
 import env_consts as ec
+from main.linux import convert_linux
+from main.windows import convert_windows
 
 
 def save_files(files, last_id: int):
@@ -89,12 +89,30 @@ def get_file_response(file_path: str, file_name: str):
     response["files"] = f"attachment; filename={file_name}"
     return response
 
+def get_converted_file_path(index: int):
+    """
+    Function to get converted path via index.
+    :param index: index of converted path directory
+    :type index: int
+    :return: converted path directory
+    :rtype: str
+    """
+    # Path to converted files.
+    converted_file_path = (
+        f"{path.dirname(__file__)}{ec.OS_SLASH}"
+        f"converted_files{ec.OS_SLASH}{index}{ec.OS_SLASH}"
+    )
+    # Make this directory if it doesn't exist.
+    makedirs(converted_file_path, exist_ok=True)
+    return converted_file_path
 
-def convert(filepath: str, files, index):
+
+def convert(filepath: str, files, index, has_type_in_request):
     """
     Conversion operator that determines the OS, calls suitable
     conversion algorithm, and returns path to them.
 
+    :param has_type_in_request: flag of each type in request
     :param filepath: path to input files
     :type filepath: str
     :param files: file names
@@ -106,131 +124,7 @@ def convert(filepath: str, files, index):
     """
     converted_file_path = get_converted_file_path(index)
     if platform in ("linux", "linux2"):
-        convert_linux(filepath, files, converted_file_path)
+        convert_linux(filepath, files, converted_file_path, has_type_in_request)
     elif platform == "win32":
-        convert_windows(filepath, files, converted_file_path)
+        convert_windows(filepath, files, converted_file_path, has_type_in_request)
     return converted_file_path
-
-
-def convert_windows(filepath: str, files, converted_file_path: str):
-    """
-    Windows conversion core.
-
-    :param converted_file_path: path to output files
-    :type converted_file_path: str
-    :param filepath: path to input files
-    :type filepath: str
-    :param files: file names
-    :type files: list of str
-    :return: path to converted files
-    :rtype: str
-    """
-    from docx2pdf import resolve_paths
-
-    if not files:
-        return
-    paths = resolve_paths(filepath, converted_file_path)
-    windows(paths, files)
-
-
-def windows_convert_docx(
-    word, docx_filepath: Path, pdf_filepath: Path, pdf_format: int
-):
-    """
-    Windows conversion docx part.
-
-    :param word: Word application
-    :param docx_filepath: path to docx file
-    :type docx_filepath: :class:`Path(PurePath)`
-    :param pdf_filepath: path to future pdf file
-    :type pdf_filepath: :class:`Path(PurePath)`
-    :param pdf_format: pdf format code
-    :type pdf_format: int
-    """
-
-    doc = word.Documents.Open(str(docx_filepath))
-    doc.SaveAs(str(pdf_filepath), FileFormat=pdf_format)
-    doc.Close(0)
-
-
-def windows(paths, files):
-    """
-    Conversion algorithm for Windows OS.
-
-    :param paths: paths
-    :type paths: dict[str, Union[bool, str, Path]]
-    :param files: files for conversion
-    :type files: list of str
-    :return:
-    """
-    import win32com.client as w32c
-    from servicemanager import CoInitializeEx
-
-    CoInitializeEx(0)
-    # Open word application for conversion.
-    word = w32c.Dispatch("Word.Application")
-    # Format of PDF file.
-    wd_format_pdf = 17
-    # Convert each file via word application.
-    for file in files:
-        docx_filepath = Path(f"{paths['input']}{ec.OS_SLASH}{file}")
-        pdf_filepath = Path(paths["output"]) / f"{Path(docx_filepath).stem}.pdf"
-        windows_convert_docx(word, docx_filepath, pdf_filepath, wd_format_pdf)
-    # Close word application.
-    word.Quit()
-
-
-def get_converted_file_path(index: int):
-    """
-    Function to get converted path via index.
-    :param index: index of converted path directory
-    :type index: int
-    :return: converted path directory
-    :rtype: str
-    """
-    # Path to converted files.
-    converted_file_path = f"{path.dirname(__file__)}{ec.OS_SLASH}converted_files{ec.OS_SLASH}{index}{ec.OS_SLASH}"
-    # Make this directory if it doesn't exist.
-    makedirs(converted_file_path, exist_ok=True)
-    return converted_file_path
-
-
-def install_libre():
-    """
-    install libre on environment
-    :return:
-    """
-    subprocess.run(
-        f"echo {ec.SYS_PWD}|sudo -S apt -y update && sudo -S apt -y install libreoffice",
-        shell=True,
-        check=True,
-    )
-    ec.INSTALLED_LIBRE = True
-
-
-def convert_linux(filepath: str, files, converted_file_path: str):
-    """
-    Conversion algorithm for Linux-like OS.
-
-    :param converted_file_path: path to output files
-    :type converted_file_path: str
-    :param filepath: path to input files
-    :type filepath: str
-    :param files: file names
-    :type files: list of str
-    :return: path to converted files
-    :rtype: str
-    """
-    if not files:
-        return
-    if not ec.INSTALLED_LIBRE:
-        install_libre()
-    exec_files = f"cd {filepath}"
-    # For all files call lowriter for conversion (LibreOffice).
-    # Execute all console commands.
-    for file in files:
-        exec_files += (
-            f" && lowriter --headless --convert-to pdf "
-            f"{file} --outdir {converted_file_path}"
-        )
-    subprocess.run(exec_files, shell=True, check=True)

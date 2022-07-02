@@ -1,12 +1,10 @@
 name: Build
 on:
   push:
-    branches:
-      - main
+    branches: [ master, main ]
   pull_request:
     types: [ opened, synchronize, reopened ]
-    branches:
-      - main
+    branches: [ master, main ]
 jobs:
   sonarcloud:
     name: SonarCloud
@@ -21,13 +19,10 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install tox and any other packages
         run: pip install tox
-      - name: Make migrations of main
-        run: |
-          python3 manage.py migrate
-          python3 manage.py makemigrations
-          python manage.py makemigrations main
       - name: Run tox
         run: tox -e py
+      - name: Fix of source
+        run: sed -i 's/\/home\/runner\/work\/05-DocPdf-Converter\/05-DocPdf-Converter\//\/github\/workspace\//g' coverage.xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ master, main ]
 
 jobs:
   build-linux:
@@ -27,7 +27,4 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python3 manage.py migrate
-        python3 manage.py makemigrations
-        python manage.py makemigrations main
         python manage.py test

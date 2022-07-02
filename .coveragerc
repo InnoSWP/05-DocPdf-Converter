@@ -1,0 +1,6 @@
+[coverage:run]
+source = ./main
+omit = main/customers_code.py
+
+[coverage:report]
+show_missing = True

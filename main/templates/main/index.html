@@ -1,3 +1,4 @@
+<!-- htmlhint spec-char-escape: false -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,7 @@
 
 <div id="main-outer" class="main-outer">
     <div class="main">
-        <div class="page-title">CONVERT <span class="doc-color">DOC</span> TO <span class="pdf-color">PDF</span></div>
+        <div class="page-title">CONVERT <span class="doc-color">DOC</span>/<span class="xls-color">EXCEL</span> TO <span class="pdf-color">PDF</span></div>
         <hr class="line"/>
         <p class="page-description description-1">IT'S SO EASY! JUST</p>
 
@@ -33,7 +34,7 @@
 
             <label for="files" class="doc-bg-color choose-files-button">CHOOSE FILES</label>
             <br>
-            <input id="files" style="visibility: hidden;" type="file" accept=".docx" name="files" multiple>
+            <input id="files" style="visibility: hidden;" type="file" accept=".pdf, .docx, .doc, .xls, .xlsx" name="files" multiple>
 
             <p class="page-description description-2">AND</p>
             <button type="submit" class="pdf-bg-color convert-button">CONVERT!</button>
