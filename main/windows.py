@@ -47,7 +47,7 @@ def windows_convert_docx(word, docx_filepath: str, pdf_filepath: str, pdf_format
         doc_opened = True
         doc.SaveAs(pdf_filepath, FileFormat=pdf_format)
     finally:
-        if doc_opened:
+        if doc_opened and doc is not None:
             doc.Close(0)
 
 
@@ -68,7 +68,7 @@ def windows_convert_xlsx(excel, xlsx_filepath: str, pdf_filepath: str):
         sheets_opened = True
         xl_sheets.Worksheets[0].ExportAsFixedFormat(0, pdf_filepath)
     finally:
-        if sheets_opened:
+        if sheets_opened and xl_sheets is not None:
             xl_sheets.Close(True)
 
 

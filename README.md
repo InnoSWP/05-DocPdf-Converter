@@ -1,7 +1,7 @@
 # Doc to PDF converter
 ## [Full documentation link](https://innoswp.github.io/05-DocPdf-Converter/)
 
-# Badges
+## Badges
 ### Linter
 [![Build](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml/badge.svg)](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml)
 ### Unit tests Django
@@ -31,13 +31,13 @@
 
 **`chmod +x runserver.sh build.sh first-run.sh`**
 
-### To run project first time with bash script (with installing dependencies):
+### To run project first time with bash script (with installing dependencies)
 **`source ./first-run.sh`**
 
-### To install dependencies with bash script:
+### To install dependencies with bash script
 **`source ./build.sh`**
 
-### To run server without installing dependencies:
+### To run server without installing dependencies
 **`source ./runserver.sh`**
 
 

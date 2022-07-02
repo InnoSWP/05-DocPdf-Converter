@@ -3,11 +3,10 @@ import shutil
 from os import path
 from pathlib import Path
 
+import env_consts as ec
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
-
-import env_consts as ec
 
 from .algorithm import (
     convert,
