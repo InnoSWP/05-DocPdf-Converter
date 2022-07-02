@@ -25,9 +25,15 @@
 * In case if the user will choose file(-s) with ".pdf" extension, then the program will send them back **=)**.
 
 ## Project Installation
+### To make first run with bash script (with installing dependencies):
+**`chmod +x first-run.sh && first-run.sh`**
 
-### Easiest universal way is to run:
-**`./runserver.sh`**
+### To install dependencies with bash script:
+**`chmod +x build.sh && build.sh`**
+
+### To run server without installing dependencies:
+**`chmod +x runserver.sh && runserver.sh`**
+
 
 ### To set up the project, set your virtual env using the commands in this order (Ubuntu)
 1. `sudo apt install python3`
@@ -36,21 +42,19 @@
 4. `python3 -m venv venv`
 5. `source venv/bin/activate`
 6. `pip install -r requirements.txt`
-7. `python3 manage.py migrate`
-8. `python3 manage.py makemigrations`
-9. `python3 manage.py makemigrations main`
-10. `python3 manage.py migrate`
+7. `python3 manage.py makemigrations`
+8. `python3 manage.py makemigrations main`
+9. `python3 manage.py migrate`
 
 *One command format:*
-**`sudo apt install python3 && sudo apt install python3-venv && sudo -S apt -y update && sudo -S apt -y install libreoffice && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python3 manage.py migrate && python3 manage.py makemigrations && python3 manage.py makemigrations main && python3 manage.py runserver`**
+**`sudo apt install python3 && sudo apt install python3-venv && sudo -S apt -y update && sudo -S apt -y install libreoffice && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python3 manage.py makemigrations && python3 manage.py makemigrations main && python3 manage.py migrate && python3 manage.py runserver`**
 
 ### To set up the project, set your virtual env using the commands in this order (Bash)
 1. `source venv/Scripts/activate`
-2. `python manage.py migrate`
-3. `python manage.py makemigrations`
-4. `python manage.py makemigrations main`
-5. `python manage.py migrate`
-6. `python manage.py runserver`
+2. `python manage.py makemigrations`
+3. `python manage.py makemigrations main`
+4. `python manage.py migrate`
+5. `python manage.py runserver`
 
 ### You can also add server runner to your configs. To that, follow this steps (PyCharm)
 1. Open configurations editor
