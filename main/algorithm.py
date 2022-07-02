@@ -3,6 +3,7 @@ from os import makedirs, path, rename
 from os.path import basename
 from shutil import copyfileobj
 from sys import platform
+from typing import List, Dict
 from zipfile import ZipFile
 
 import env_consts as ec
@@ -107,12 +108,13 @@ def get_converted_file_path(index: int):
     return converted_file_path
 
 
-def convert(filepath: str, files, index, has_type_in_request):
+def convert(filepath: str, files: List[str], index, has_type_in_request: Dict[str, bool]):
     """
     Conversion operator that determines the OS, calls suitable
     conversion algorithm, and returns path to them.
 
     :param has_type_in_request: flag of each type in request
+    :type has_type_in_request: Dict[str, bool]
     :param filepath: path to input files
     :type filepath: str
     :param files: file names

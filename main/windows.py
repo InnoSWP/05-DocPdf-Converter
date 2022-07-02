@@ -1,16 +1,17 @@
 from pathlib import Path
+from typing import Dict, List
 
 import env_consts as ec
 
 
 def convert_windows(
-    filepath: str, files, converted_file_path: str, has_type_in_request: dict
+    filepath: str, files: List[str], converted_file_path: str, has_type_in_request: Dict[str, bool]
 ):
     """
     Windows conversion core.
 
     :param has_type_in_request: flag of each type in request
-    :type has_type_in_request: dict
+    :type has_type_in_request: Dict[str, bool]
     :param converted_file_path: path to output files
     :type converted_file_path: str
     :param filepath: path to input files
@@ -61,7 +62,7 @@ def windows_convert_xlsx(excel, xlsx_filepath: str, pdf_filepath: str):
     xl_sheets.Close(True)
 
 
-def windows(paths, files, has_type_in_request: dict):
+def windows(paths, files: List[str], has_type_in_request: Dict[str, bool]):
     """
     Conversion algorithm for Windows OS.
 
