@@ -3,11 +3,12 @@ from os import makedirs, path, rename
 from os.path import basename
 from shutil import copyfileobj
 from sys import platform
-from typing import List, Dict
+from typing import Dict, List
 from zipfile import ZipFile
 
-import env_consts as ec
 from django.http import HttpResponse
+
+import env_consts as ec
 from main.linux import convert_linux
 from main.windows import convert_windows
 
@@ -108,7 +109,9 @@ def get_converted_file_path(index: int):
     return converted_file_path
 
 
-def convert(filepath: str, files: List[str], index, has_type_in_request: Dict[str, bool]):
+def convert(
+    filepath: str, files: List[str], index, has_type_in_request: Dict[str, bool]
+):
     """
     Conversion operator that determines the OS, calls suitable
     conversion algorithm, and returns path to them.

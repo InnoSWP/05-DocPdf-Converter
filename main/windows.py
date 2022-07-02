@@ -5,7 +5,10 @@ import env_consts as ec
 
 
 def convert_windows(
-    filepath: str, files: List[str], converted_file_path: str, has_type_in_request: Dict[str, bool]
+    filepath: str,
+    files: List[str],
+    converted_file_path: str,
+    has_type_in_request: Dict[str, bool],
 ):
     """
     Windows conversion core.

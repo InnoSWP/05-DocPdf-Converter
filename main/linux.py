@@ -1,6 +1,6 @@
 import subprocess
 from os import makedirs
-from typing import List, Dict
+from typing import Dict, List
 
 import env_consts as ec
 
@@ -19,7 +19,10 @@ def install_libre():
 
 
 def convert_linux(
-    filepath: str, files: List[str], converted_file_path: str, has_type_in_request: Dict[str, bool]
+    filepath: str,
+    files: List[str],
+    converted_file_path: str,
+    has_type_in_request: Dict[str, bool],
 ):
     """
     Conversion algorithm for Linux-like OS.
