@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Union
 
 import env_consts as ec
 
@@ -65,7 +65,7 @@ def windows_convert_xlsx(excel, xlsx_filepath: str, pdf_filepath: str):
     xl_sheets.Close(True)
 
 
-def windows(paths, files: List[str], has_type_in_request: Dict[str, bool]):
+def windows(paths: Dict[str, Union[bool, str, Path]], files: List[str], has_type_in_request: Dict[str, bool]):
     """
     Conversion algorithm for Windows OS.
 
