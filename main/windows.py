@@ -44,10 +44,15 @@ def windows_convert_docx(word, docx_filepath: str, pdf_filepath: str, pdf_format
     :param pdf_format: pdf format code
     :type pdf_format: int
     """
-
-    doc = word.Documents.Open(docx_filepath)
-    doc.SaveAs(pdf_filepath, FileFormat=pdf_format)
-    doc.Close(0)
+    doc_opened = False
+    doc = None
+    try:
+        doc = word.Documents.Open(docx_filepath)
+        doc_opened = True
+        doc.SaveAs(pdf_filepath, FileFormat=pdf_format)
+    finally:
+        if doc_opened and doc is not None:
+            doc.Close(0)
 
 
 def windows_convert_xlsx(excel, xlsx_filepath: str, pdf_filepath: str):
@@ -60,9 +65,15 @@ def windows_convert_xlsx(excel, xlsx_filepath: str, pdf_filepath: str):
     :param pdf_filepath: path to future pdf file
     :type pdf_filepath: str
     """
-    xl_sheets = excel.Workbooks.Open(xlsx_filepath)
-    xl_sheets.Worksheets[0].ExportAsFixedFormat(0, pdf_filepath)
-    xl_sheets.Close(True)
+    sheets_opened = False
+    xl_sheets = None
+    try:
+        xl_sheets = excel.Workbooks.Open(xlsx_filepath)
+        sheets_opened = True
+        xl_sheets.Worksheets[0].ExportAsFixedFormat(0, pdf_filepath)
+    finally:
+        if sheets_opened and xl_sheets is not None:
+            xl_sheets.Close(True)
 
 
 def windows(
@@ -85,17 +96,20 @@ def windows(
 
     word = None
     excel = None
-
     CoInitializeEx(0)
 
     # Open word application for conversion.
-    docx_type, xlsx_type = ".docx", ".xlsx"
-    if has_type_in_request[docx_type]:
+    docx_type, doc_type, xlsx_type, xls_type = ".docx", ".doc", ".xlsx", ".xls"
+    word_types = [doc_type, docx_type]
+    excel_types = [xlsx_type, xls_type]
+
+    if any(has_type_in_request[file_type] for file_type in word_types):
         word = w32c.Dispatch("Word.Application")
 
     # Open excel application for conversion.
-    if has_type_in_request[xlsx_type]:
+    if any(has_type_in_request[file_type] for file_type in excel_types):
         excel = w32c.Dispatch("Excel.Application")
+
     # Format of PDF file.
     wd_format_pdf = 17
 
@@ -105,9 +119,13 @@ def windows(
         pdf_filepath = (
             f"{paths['output']}{ec.OS_SLASH}{Path(document_filepath).stem}.pdf"
         )
-        if word is w32c.CDispatch and docx_type in file:
+        if isinstance(word, w32c.CDispatch) and any(
+            file_type in file for file_type in word_types
+        ):
             windows_convert_docx(word, document_filepath, pdf_filepath, wd_format_pdf)
-        elif excel is w32c.CDispatch and xlsx_type in file:
+        elif isinstance(excel, w32c.CDispatch) and any(
+            file_type in file for file_type in excel_types
+        ):
             windows_convert_xlsx(excel, document_filepath, pdf_filepath)
 
     # Close word application.

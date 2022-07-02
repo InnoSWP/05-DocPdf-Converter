@@ -3,11 +3,10 @@ import shutil
 from os import path
 from pathlib import Path
 
+import env_consts as ec
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
-
-import env_consts as ec
 
 from .algorithm import (
     convert,
@@ -80,7 +79,13 @@ class ConvertApi(generics.GenericAPIView):
                 with open(ec.LAST_OP_FILE, "w", encoding="utf-8") as file:
                     file.write(str(init_id + 1))
                 last_id = get_init_id()
-                acceptable_types = {".docx": False, ".xlsx": False, ".pdf": False, ".doc": False, ".xls": False}
+                acceptable_types = {
+                    ".docx": False,
+                    ".xlsx": False,
+                    ".pdf": False,
+                    ".doc": False,
+                    ".xls": False,
+                }
                 # Save files and get the path to them.
                 for file in files:
                     # If one of the files is not acceptable, return 400 status

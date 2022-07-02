@@ -1,7 +1,7 @@
 # Doc to PDF converter
 ## [Full documentation link](https://innoswp.github.io/05-DocPdf-Converter/)
 
-# Badges
+## Badges
 ### Linter
 [![Build](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml/badge.svg)](https://github.com/InnoSWP/05-DocPdf-Converter/actions/workflows/build.yml)
 ### Unit tests Django
@@ -35,9 +35,21 @@ https://user-images.githubusercontent.com/48485773/177003285-8a2783fe-2881-46db-
 https://user-images.githubusercontent.com/48485773/177003334-a7ef6312-442d-4043-9d92-1bd7f6389713.mp4
 
 ## Project Installation
+1. Clone the project
+2. Open project directory in console
+3. Make the scripts' executables:
 
-### Easiest universal way is to run:
-**`./runserver.sh`**
+**`chmod +x runserver.sh build.sh first-run.sh`**
+
+### To run project first time with bash script (with installing dependencies)
+**`source ./first-run.sh`**
+
+### To install dependencies with bash script
+**`source ./build.sh`**
+
+### To run server without installing dependencies
+**`source ./runserver.sh`**
+
 
 ### To set up the project, set your virtual env using the commands in this order (Ubuntu)
 1. `sudo apt install python3`
@@ -46,21 +58,19 @@ https://user-images.githubusercontent.com/48485773/177003334-a7ef6312-442d-4043-
 4. `python3 -m venv venv`
 5. `source venv/bin/activate`
 6. `pip install -r requirements.txt`
-7. `python3 manage.py migrate`
-8. `python3 manage.py makemigrations`
-9. `python3 manage.py makemigrations main`
+7. `python3 manage.py makemigrations`
+8. `python3 manage.py makemigrations main`
+9. `python3 manage.py migrate`
 10. `python3 manage.py migrate`
-
 *One command format:*
-**`sudo apt install python3 && sudo apt install python3-venv && sudo -S apt -y update && sudo -S apt -y install libreoffice && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python3 manage.py migrate && python3 manage.py makemigrations && python3 manage.py makemigrations main && python3 manage.py runserver`**
+**`sudo apt install python3 && sudo apt install python3-venv && sudo -S apt -y update && sudo -S apt -y install libreoffice && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python3 manage.py makemigrations && python3 manage.py makemigrations main && python3 manage.py migrate && python3 manage.py runserver`**
 
 ### To set up the project, set your virtual env using the commands in this order (Bash)
 1. `source venv/Scripts/activate`
-2. `python manage.py migrate`
-3. `python manage.py makemigrations`
-4. `python manage.py makemigrations main`
-5. `python manage.py migrate`
-6. `python manage.py runserver`
+2. `python manage.py makemigrations`
+3. `python manage.py makemigrations main`
+4. `python manage.py migrate`
+5. `python manage.py runserver`
 
 ### You can also add server runner to your configs. To that, follow this steps (PyCharm)
 1. Open configurations editor
@@ -75,7 +85,7 @@ https://user-images.githubusercontent.com/48485773/177003334-a7ef6312-442d-4043-
 1. Go on the generated [**link**](http://127.0.0.1:8000/convert).
 2. The main page will be opened. There you will see two buttons: "Choose files" and "Convert".
 3. You can choose files on your machine and after that convert them by clicking the same-called buttons.
-4. Depending on the amount of choosed files, you will receive a single-converted file (if you choosed one file) or an archive of converted files otherwise.
+4. Depending on the amount of chosen files, you will receive a single-converted file (if you chose one file) or an archive of converted files otherwise.
 
 ## Framework and technology
 ### Frontend

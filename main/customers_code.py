@@ -21,10 +21,15 @@ def main():
                     ),
                 )
             )
-    resp = requests.request("POST", url, files=files, stream=True, )
+    resp = requests.request(
+        "POST",
+        url,
+        files=files,
+        stream=True,
+    )
     if resp.status_code in (
-            status.HTTP_400_BAD_REQUEST,
-            status.HTTP_500_INTERNAL_SERVER_ERROR,
+        status.HTTP_400_BAD_REQUEST,
+        status.HTTP_500_INTERNAL_SERVER_ERROR,
     ):
         print(resp.text)
         return
