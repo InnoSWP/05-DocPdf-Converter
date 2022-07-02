@@ -5,9 +5,9 @@ from shutil import copyfileobj
 from sys import platform
 from zipfile import ZipFile
 
+import env_consts as ec
 from django.http import HttpResponse
 
-import env_consts as ec
 from main.linux import convert_linux
 from main.windows import convert_windows
 
