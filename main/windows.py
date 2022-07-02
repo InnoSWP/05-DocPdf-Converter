@@ -94,6 +94,7 @@ def windows(
     import win32com.client as w32c
     from servicemanager import CoInitializeEx
 
+    # Initialize word and excel as empty
     word = None
     excel = None
     CoInitializeEx(0)

@@ -19,10 +19,10 @@ def install_libre():
 
 
 def convert_linux(
-    filepath: str,
-    files: List[str],
-    converted_file_path: str,
-    has_type_in_request: Dict[str, bool],
+        filepath: str,
+        files: List[str],
+        converted_file_path: str,
+        has_type_in_request: Dict[str, bool],
 ):
     """
     Conversion algorithm for Linux-like OS.
@@ -42,10 +42,10 @@ def convert_linux(
         return
     if not ec.INSTALLED_LIBRE:
         with subprocess.Popen(
-            "apt list -a libreoffice",
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+                "apt list -a libreoffice",
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
         ) as process:
             if "installed" not in process.communicate()[0].decode("utf-8"):
                 install_libre()
@@ -54,6 +54,8 @@ def convert_linux(
     for type_in in has_type_in_request:
         if has_type_in_request[type_in] and type_in != ".pdf":
             command += f"&& lowriter --headless --convert-to pdf *{type_in} --outdir {converted_file_path}"
+
+    # Prepare directories
     makedirs(converted_file_path, exist_ok=True)
     # For all files call lowriter for conversion (LibreOffice).
     # Execute all console commands.
