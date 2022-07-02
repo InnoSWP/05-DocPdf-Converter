@@ -80,7 +80,13 @@ class ConvertApi(generics.GenericAPIView):
                 with open(ec.LAST_OP_FILE, "w", encoding="utf-8") as file:
                     file.write(str(init_id + 1))
                 last_id = get_init_id()
-                acceptable_types = {".docx": False, ".xlsx": False, ".pdf": False, ".doc": False, ".xls": False}
+                acceptable_types = {
+                    ".docx": False,
+                    ".xlsx": False,
+                    ".pdf": False,
+                    ".doc": False,
+                    ".xls": False,
+                }
                 # Save files and get the path to them.
                 for file in files:
                     # If one of the files is not acceptable, return 400 status

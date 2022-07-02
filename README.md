@@ -25,14 +25,20 @@
 * In case if the user will choose file(-s) with ".pdf" extension, then the program will send them back **=)**.
 
 ## Project Installation
-### To make first run with bash script (with installing dependencies):
-**`chmod +x first-run.sh && first-run.sh`**
+1. Clone the project
+2. Open project directory in console
+3. Make the scripts' executables:
+
+**`chmod +x runserver.sh build.sh first-run.sh`**
+
+### To run project first time with bash script (with installing dependencies):
+**`source ./first-run.sh`**
 
 ### To install dependencies with bash script:
-**`chmod +x build.sh && build.sh`**
+**`source ./build.sh`**
 
 ### To run server without installing dependencies:
-**`chmod +x runserver.sh && runserver.sh`**
+**`source ./runserver.sh`**
 
 
 ### To set up the project, set your virtual env using the commands in this order (Ubuntu)
@@ -69,7 +75,7 @@
 1. Go on the generated [**link**](http://127.0.0.1:8000/convert).
 2. The main page will be opened. There you will see two buttons: "Choose files" and "Convert".
 3. You can choose files on your machine and after that convert them by clicking the same-called buttons.
-4. Depending on the amount of choosed files, you will receive a single-converted file (if you choosed one file) or an archive of converted files otherwise.
+4. Depending on the amount of chosen files, you will receive a single-converted file (if you chose one file) or an archive of converted files otherwise.
 
 ## Framework and technology
 ### Frontend
