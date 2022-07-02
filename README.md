@@ -24,6 +24,16 @@
 * All files after the conversion are returned in archive with PDFs (if there are more than one file) or as a single PDF file otherwise.
 * In case if the user will choose file(-s) with ".pdf" extension, then the program will send them back **=)**.
 
+## Project Demo
+### Main processes
+https://user-images.githubusercontent.com/48485773/177003285-8a2783fe-2881-46db-98c6-2d3354836e11.mp4
+
+### Errors
+1. Attempt to convert nothing
+2. Attempt to convert file(-s) with unsupported extensions
+
+https://user-images.githubusercontent.com/48485773/177003334-a7ef6312-442d-4043-9d92-1bd7f6389713.mp4
+
 ## Project Installation
 
 ### Easiest universal way is to run:
