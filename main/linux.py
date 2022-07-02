@@ -18,11 +18,12 @@ def install_libre():
     ec.INSTALLED_LIBRE = True
 
 
-def convert_linux(filepath: str, files, converted_file_path: str, has_type_in_request):
+def convert_linux(filepath: str, files, converted_file_path: str, has_type_in_request: dict):
     """
     Conversion algorithm for Linux-like OS.
 
-    :param has_type_in_request:
+    :param has_type_in_request: flag of each type in request
+    :type has_type_in_request: dict
     :param converted_file_path: path to output files
     :type converted_file_path: str
     :param filepath: path to input files
@@ -46,7 +47,7 @@ def convert_linux(filepath: str, files, converted_file_path: str, has_type_in_re
 
     command = f"cd {filepath}"
     for type_in in has_type_in_request:
-        if has_type_in_request[type_in] and type_in is not ".pdf":
+        if has_type_in_request[type_in] and type_in != ".pdf":
             command += f"&& lowriter --headless --convert-to pdf *{type_in} --outdir {converted_file_path}"
     makedirs(converted_file_path, exist_ok=True)
     # For all files call lowriter for conversion (LibreOffice).

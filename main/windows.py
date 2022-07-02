@@ -10,6 +10,7 @@ def convert_windows(
     Windows conversion core.
 
     :param has_type_in_request: flag of each type in request
+    :type has_type_in_request: dict
     :param converted_file_path: path to output files
     :type converted_file_path: str
     :param filepath: path to input files
