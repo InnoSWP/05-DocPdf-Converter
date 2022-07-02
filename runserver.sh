@@ -1,7 +1,7 @@
 #!/bin/bash
 case "$OSTYPE" in
-  linux*) sh ./linux.sh;;
-  msys*) sh ./windows.sh;;
-  cygwin*) sh ./windows.sh;;
+  linux*) sh ./linux-runserver.sh;;
+  msys*) sh ./windows-runserver.sh;;
+  cygwin*) sh ./windows-runserver.sh;;
   *)      echo "unknown: $OSTYPE" ;;
 esac
