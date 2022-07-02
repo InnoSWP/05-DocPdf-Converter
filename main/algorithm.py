@@ -7,7 +7,6 @@ from zipfile import ZipFile
 
 import env_consts as ec
 from django.http import HttpResponse
-
 from main.linux import convert_linux
 from main.windows import convert_windows
 
