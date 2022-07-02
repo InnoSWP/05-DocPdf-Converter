@@ -1,5 +1,4 @@
 import subprocess
-
 from os import makedirs
 
 import env_consts as ec
@@ -18,7 +17,9 @@ def install_libre():
     ec.INSTALLED_LIBRE = True
 
 
-def convert_linux(filepath: str, files, converted_file_path: str, has_type_in_request: dict):
+def convert_linux(
+    filepath: str, files, converted_file_path: str, has_type_in_request: dict
+):
     """
     Conversion algorithm for Linux-like OS.
 

@@ -75,31 +75,37 @@ def windows(paths, files, has_type_in_request: dict):
     import win32com.client as w32c
     from servicemanager import CoInitializeEx
 
-    CoInitializeEx(0)
-    # Open word application for conversion.
     word = None
     excel = None
+
+    CoInitializeEx(0)
+
+    # Open word application for conversion.
     docx_type, xlsx_type = ".docx", ".xlsx"
     if has_type_in_request[docx_type]:
         word = w32c.Dispatch("Word.Application")
+
     # Open excel application for conversion.
     if has_type_in_request[xlsx_type]:
         excel = w32c.Dispatch("Excel.Application")
     # Format of PDF file.
     wd_format_pdf = 17
+
     # Convert each file via word application.
     for file in files:
         document_filepath = f"{paths['input']}{ec.OS_SLASH}{file}"
         pdf_filepath = (
             f"{paths['output']}{ec.OS_SLASH}{Path(document_filepath).stem}.pdf"
         )
-        if docx_type in file:
+        if word is w32c.CDispatch and docx_type in file:
             windows_convert_docx(word, document_filepath, pdf_filepath, wd_format_pdf)
-        elif xlsx_type in file:
+        elif excel is w32c.CDispatch and xlsx_type in file:
             windows_convert_xlsx(excel, document_filepath, pdf_filepath)
+
     # Close word application.
-    if has_type_in_request[docx_type]:
+    if word is w32c.CDispatch:
         word.Quit()
+
     # Close excel application.
-    if has_type_in_request[xlsx_type]:
+    if excel is w32c.CDispatch:
         excel.Quit()
