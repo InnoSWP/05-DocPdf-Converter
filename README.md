@@ -19,8 +19,8 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=InnoSWP_05-DocPdf-Converter&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=InnoSWP_05-DocPdf-Converter)
 
 ## Project Description
-### This is the project with user-friendly and simple interface that perform converting files with .doc/.docx extention to PDF on local Windows/Linux server
-* Each of the algorithms (both for Windows and Linux) uses the built-in functions of programs-viewers (such as [**Microsoft Word**](https://en.wikipedia.org/wiki/Microsoft_Word) for Windows and [**LibreOffice Writer**](https://en.wikipedia.org/wiki/LibreOffice_Writer) for Linux) to convert files with .doc/.docx extension to PDFs with minimum errors of conversion.
+### This is the project with user-friendly and simple interface that perform converting files with .doc/.docx/.xls/.xslx extention to PDF on local Windows/Linux server
+* Each of the algorithms (both for Windows and Linux) uses the built-in functions of programs-viewers (such as [**Microsoft Word**](https://en.wikipedia.org/wiki/Microsoft_Word) & [**Microsoft Exel**](https://en.wikipedia.org/wiki/Microsoft_Excel) for Windows and [**LibreOffice Writer**](https://en.wikipedia.org/wiki/LibreOffice_Writer) & [**LibreOffice Calc**](https://en.wikipedia.org/wiki/LibreOffice_Calc) for Linux) to convert files with .doc/.docx/.xls/.xslx extension to PDFs with minimum errors of conversion.
 * All files after the conversion are returned in archive with PDFs (if there are more than one file) or as a single PDF file otherwise.
 * In case if the user will choose file(-s) with ".pdf" extension, then the program will send them back **=)**.
 
