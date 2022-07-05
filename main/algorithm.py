@@ -55,6 +55,7 @@ def zip_files_in_dir(filepath: str, files, zip_file_name: str):
     :type files: list of str
     :param zip_file_name: name of zip file
     :type zip_file_name: str
+
     :return file_format
     :rtype string
     """

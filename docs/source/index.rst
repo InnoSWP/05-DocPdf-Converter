@@ -26,6 +26,8 @@ returns them in .pdf format.
    models.rst
    serializers.rst
    algorithm.rst
+   linux.rst
+   windows.rst
 
 Indices and tables
 ==================

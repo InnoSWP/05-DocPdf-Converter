@@ -30,27 +30,3 @@ Convert files core function
 ***************************
 
 .. autofunction::  main.algorithm.convert
-
-***********************************
-Conversion Windows OS core function
-***********************************
-
-.. autofunction::  main.algorithm.windows
-
-***********************************
-Docx conversion Windows OS function
-***********************************
-
-.. autofunction::  main.algorithm.windows_convert_docx
-
-******************************
-Conversion Windows OS function
-******************************
-
-.. autofunction::  main.algorithm.convert_windows
-
-*******************
-Save files function
-*******************
-
-.. autofunction::  main.algorithm.convert_linux
