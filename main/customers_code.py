@@ -10,23 +10,23 @@ def main():
     filess = ["1.doc", "2.docx", "3.docx", "4.docx"]
     files = []
     for file in filess:
-        for i in range((int(file[0]) - 1) * 25, int(file[0]) * 25):
-            files.append(
+        files.append(
+            (
+                "files",
                 (
-                    "files",
-                    (
-                        f"{i}.docx",
-                        open(f"{file}", "rb"),
-                        MimeTypes().guess_type(file),
-                    ),
-                )
+                    file,
+                    open(f"{file}", "rb"),
+                    MimeTypes().guess_type(file),
+                ),
             )
+        )
     resp = requests.request(
         "POST",
         url,
         files=files,
         stream=True,
     )
+    print(resp.json())
     if resp.status_code in (
         status.HTTP_400_BAD_REQUEST,
         status.HTTP_500_INTERNAL_SERVER_ERROR,
