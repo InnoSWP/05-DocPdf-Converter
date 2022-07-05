@@ -25,11 +25,13 @@ class Converter(models.Model):
     """
     Converter model
 
-    :param files: all files for conversion
-    :param upload: instance of :class:`Upload` model
+    :files: all files for conversion
+    :upload: instance of :class:`Upload` model
     """
 
     files = models.FileField(
-        help_text="Add files that you want to convert.", default=None, null=False
+        help_text="Add files that you want to convert.",
+        default=None,
+        null=False,
     )
     upload = models.ForeignKey(Upload, related_name="files", on_delete=models.CASCADE)
