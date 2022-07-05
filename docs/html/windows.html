@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Windows algorithms documentation &#8212; Doc To PDF 05  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Linux algorithms documentation" href="linux.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="windows-algorithms-documentation">
+<h1>Windows algorithms documentation<a class="headerlink" href="#windows-algorithms-documentation" title="Permalink to this heading">¶</a></h1>
+<section id="conversion-windows-os-core-function">
+<h2>Conversion Windows OS core function<a class="headerlink" href="#conversion-windows-os-core-function" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="main.windows.windows">
+<span class="sig-prename descclassname"><span class="pre">main.windows.</span></span><span class="sig-name descname"><span class="pre">windows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_type_in_request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.windows.windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conversion algorithm for Windows OS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>has_type_in_request</strong> – flag of each type in request</p></li>
+<li><p><strong>paths</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Union</em><em>[</em><em>bool</em><em>, </em><em>str</em><em>, </em><em>Path</em><em>]</em><em>]</em>) – paths</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – files for conversion</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conversion-windows-os-function">
+<h2>Conversion Windows OS function<a class="headerlink" href="#conversion-windows-os-function" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="main.windows.convert_windows">
+<span class="sig-prename descclassname"><span class="pre">main.windows.</span></span><span class="sig-name descname"><span class="pre">convert_windows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converted_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_type_in_request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.windows.convert_windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Windows conversion core.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>has_type_in_request</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>bool</em><em>]</em>) – flag of each type in request</p></li>
+<li><p><strong>converted_file_path</strong> (<em>str</em>) – path to output files</p></li>
+<li><p><strong>filepath</strong> (<em>str</em>) – path to input files</p></li>
+<li><p><strong>files</strong> (<em>list of str</em>) – file names</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>path to converted files</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conversion-xlsx-function">
+<h2>Conversion xlsx function<a class="headerlink" href="#conversion-xlsx-function" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="main.windows.windows_convert_xlsx">
+<span class="sig-prename descclassname"><span class="pre">main.windows.</span></span><span class="sig-name descname"><span class="pre">windows_convert_xlsx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">excel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlsx_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdf_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.windows.windows_convert_xlsx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Windows conversion xlsx part.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>excel</strong> – Excel application</p></li>
+<li><p><strong>xlsx_filepath</strong> (<em>str</em>) – path to xlsx file</p></li>
+<li><p><strong>pdf_filepath</strong> (<em>str</em>) – path to future pdf file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conversion-docx-function">
+<h2>Conversion docx function<a class="headerlink" href="#conversion-docx-function" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="main.windows.windows_convert_docx">
+<span class="sig-prename descclassname"><span class="pre">main.windows.</span></span><span class="sig-name descname"><span class="pre">windows_convert_docx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docx_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdf_filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdf_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.windows.windows_convert_docx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Windows conversion docx part.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>word</strong> – Word application</p></li>
+<li><p><strong>docx_filepath</strong> (<em>str</em>) – path to docx file</p></li>
+<li><p><strong>pdf_filepath</strong> (<em>str</em>) – path to future pdf file</p></li>
+<li><p><strong>pdf_format</strong> (<em>int</em>) – pdf format code</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Doc To PDF 05</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start instuctions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serializers.html">Serializers documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm.html">Algorithms documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linux.html">Linux algorithms documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Windows algorithms documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#conversion-windows-os-core-function">Conversion Windows OS core function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conversion-windows-os-function">Conversion Windows OS function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conversion-xlsx-function">Conversion xlsx function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conversion-docx-function">Conversion docx function</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="linux.html" title="previous chapter">Linux algorithms documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Kirill Korolev, Igor Abramov, Grigory Gilev, Alexander Kurdyukov, Vladislav Kulikov.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/windows.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
