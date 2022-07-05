@@ -7,6 +7,7 @@ import env_consts as ec
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.exceptions import ValidationError
 
 from .algorithm import (
     convert,
@@ -120,22 +121,33 @@ class ConvertApi(generics.GenericAPIView):
                 )
                 # Remove all unnecessary directories.
                 return response
+            except ValidationError:
+                return Response(
+                    {
+                        "error": "empty_file",
+                        "error_description": "Empty file in your request.",
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             except Exception as exception:
                 print(exception)
             finally:
                 if not bad_request:
                     last_id = get_init_id()
                     file_path = f"{path.dirname(__file__)}{ec.OS_SLASH}files{ec.OS_SLASH}{last_id}{ec.OS_SLASH}"
-                    shutil.rmtree(file_path)
-                    shutil.rmtree(get_converted_file_path(last_id))
+                    if Path(file_path).exists() and Path(file_path).is_dir():
+                        shutil.rmtree(file_path)
+                    converted_file_path = get_converted_file_path(last_id)
+                    if Path(converted_file_path).exists() and Path(converted_file_path).is_dir():
+                        shutil.rmtree(converted_file_path)
 
         # Return response if user not authenticated.
         return Response(
             {
-                "error": "invalid_token",
-                "error_description": "Your request is not authenticated.",
+                "error": "server_error",
+                "error_description": "Something wrong with server.",
             },
-            status=status.HTTP_401_UNAUTHORIZED,
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
     def get(self, request):

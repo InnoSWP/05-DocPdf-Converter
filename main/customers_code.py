@@ -26,7 +26,6 @@ def main():
         files=files,
         stream=True,
     )
-    print(resp.json())
     if resp.status_code in (
         status.HTTP_400_BAD_REQUEST,
         status.HTTP_500_INTERNAL_SERVER_ERROR,
