@@ -36,14 +36,34 @@
             
   <section id="quick-start-instuctions">
 <h1>Quick start instuctions<a class="headerlink" href="#quick-start-instuctions" title="Permalink to this heading">¶</a></h1>
-<section id="to-set-up-project-set-your-virtual-env-use-commands-in-this-order-bash">
-<h2><strong>To set up project set your virtual env use commands in this order (Bash):</strong><a class="headerlink" href="#to-set-up-project-set-your-virtual-env-use-commands-in-this-order-bash" title="Permalink to this heading">¶</a></h2>
+<section id="to-set-up-the-project-set-your-virtual-env-using-the-commands-in-this-order-bash">
+<h2><strong>To set up the project, set your virtual env using the commands in this order (Bash):</strong><a class="headerlink" href="#to-set-up-the-project-set-your-virtual-env-using-the-commands-in-this-order-bash" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>source venv/Scripts/activate</p></li>
-<li><p>python manage.py migrate</p></li>
-<li><p>python manage.py makemigrations</p></li>
-<li><p>python manage.py runserver</p></li>
+<li><p><cite>source venv/Scripts/activate</cite></p></li>
+<li><p><cite>python manage.py makemigrations</cite></p></li>
+<li><p><cite>python manage.py makemigrations main</cite></p></li>
+<li><p><cite>python manage.py migrate</cite></p></li>
+<li><p><cite>python manage.py runserver</cite></p></li>
 </ol>
+</section>
+<section id="to-set-up-the-project-set-your-virtual-env-using-the-commands-in-this-order-ubuntu">
+<h2><strong>To set up the project, set your virtual env using the commands in this order (Ubuntu):</strong><a class="headerlink" href="#to-set-up-the-project-set-your-virtual-env-using-the-commands-in-this-order-ubuntu" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><cite>sudo apt install python3</cite></p></li>
+<li><p><cite>sudo apt install python3-venv</cite></p></li>
+<li><p><cite>sudo -S apt -y update &amp;&amp; sudo -S apt -y install libreoffice</cite></p></li>
+<li><p><cite>python3 -m venv venv</cite></p></li>
+<li><p><cite>source venv/bin/activate</cite></p></li>
+<li><p><cite>pip install -r requirements.txt</cite></p></li>
+<li><p><cite>python3 manage.py makemigrations</cite></p></li>
+<li><p><cite>python3 manage.py makemigrations main</cite></p></li>
+<li><p><cite>python3 manage.py migrate</cite></p></li>
+<li><p><cite>python3 manage.py migrate</cite></p></li>
+</ol>
+</section>
+<section id="one-command-format">
+<h2><em>One command format:</em><a class="headerlink" href="#one-command-format" title="Permalink to this heading">¶</a></h2>
+<p><strong>`sudo apt install python3 &amp;&amp; sudo apt install python3-venv &amp;&amp; sudo -S apt -y update &amp;&amp; sudo -S apt -y install libreoffice &amp;&amp; python3 -m venv venv &amp;&amp; source venv/bin/activate &amp;&amp; pip install -r requirements.txt &amp;&amp; python3 manage.py makemigrations &amp;&amp; python3 manage.py makemigrations main &amp;&amp; python3 manage.py migrate &amp;&amp; python3 manage.py runserver`</strong></p>
 </section>
 <section id="you-also-can-add-server-runner-to-your-configs-to-do-that-follow-this-steps-pycharm">
 <h2>You also can add server runner to your configs, to do that follow this steps (PyCharm):<a class="headerlink" href="#you-also-can-add-server-runner-to-your-configs-to-do-that-follow-this-steps-pycharm" title="Permalink to this heading">¶</a></h2>
@@ -79,7 +99,9 @@
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick start instuctions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#to-set-up-project-set-your-virtual-env-use-commands-in-this-order-bash"><strong>To set up project set your virtual env use commands in this order (Bash):</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#to-set-up-the-project-set-your-virtual-env-using-the-commands-in-this-order-bash"><strong>To set up the project, set your virtual env using the commands in this order (Bash):</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#to-set-up-the-project-set-your-virtual-env-using-the-commands-in-this-order-ubuntu"><strong>To set up the project, set your virtual env using the commands in this order (Ubuntu):</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#one-command-format"><em>One command format:</em></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#you-also-can-add-server-runner-to-your-configs-to-do-that-follow-this-steps-pycharm">You also can add server runner to your configs, to do that follow this steps (PyCharm):</a></li>
 </ul>
 </li>
