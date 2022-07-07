@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD013 -->
+
 # Doc to PDF converter
 ## [Full documentation link](https://innoswp.github.io/05-DocPdf-Converter/)
 
