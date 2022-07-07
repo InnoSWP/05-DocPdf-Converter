@@ -26,13 +26,13 @@
 
 ## Project Demo
 ### Main processes
-<https://user-images.githubusercontent.com/48485773/177003285-8a2783fe-2881-46db-98c6-2d3354836e11.mp4>
+[Demo video](https://user-images.githubusercontent.com/48485773/177003285-8a2783fe-2881-46db-98c6-2d3354836e11.mp4)
 
 ### Errors
 1. Attempt to convert nothing
 2. Attempt to convert file(-s) with unsupported extensions
 
-https://user-images.githubusercontent.com/48485773/177003334-a7ef6312-442d-4043-9d92-1bd7f6389713.mp4
+[Error demo](https://user-images.githubusercontent.com/48485773/177003334-a7ef6312-442d-4043-9d92-1bd7f6389713.mp4)
 
 ## Project Installation
 1. Clone the project
