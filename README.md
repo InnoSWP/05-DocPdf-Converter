@@ -114,7 +114,7 @@ Please, pay attention to the fact the under `correct file(s)` in `Body param nam
 - .docx
 - .xls
 - .xlsx
-- .pdf
+- .PDF
 
 To see example requests on Postman, you should firstly accept the [invitation](https://app.getpostman.com/join-team?invite_code=e055fc0195cb7f0bd9fa89b71e7cfc4d&target_code=3e27288b270844aa4aa3c6570f31750b)
 
