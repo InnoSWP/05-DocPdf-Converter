@@ -107,3 +107,20 @@ https://user-images.githubusercontent.com/48485773/177003334-a7ef6312-442d-4043-
 ### Cross-platform
 DocPdf converter has two different modules that allow efficient conversion on both Linux and Windows-based servers.
 The system identifies the platform it runs on, and, depending on the result, executes corresponding module.
+
+## Description of requests
+Please, pay attention to the fact the under `correct file(s)` in `Body param name` we assume all the files with the correct extension:
+- .doc
+- .docx
+- .xls
+- .xlsx
+- .pdf
+
+To see example requests on Postman, you should firstly accept the [invitation](https://app.getpostman.com/join-team?invite_code=e055fc0195cb7f0bd9fa89b71e7cfc4d&target_code=3e27288b270844aa4aa3c6570f31750b)
+
+| URL                                                            | Body param name | Param value                              | Response code | Response content                                                               | Example                                                                                                                                                                             |
+| :------------------------------------------------------------: | :-------------: | :--------------------------------------: | :-----------: | :----------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| http://127.0.0.1:8000/convert                                  | `files`         | single correct file                      | 200           | single `.pdf` file                                                             | [Postman](https://lunar-crescent-398747.postman.co/workspace/DocToPdf-Team5-Workspace~f3018eb9-558e-49ae-8204-433ad59feae4/example/17330906-3252e40e-d287-48c5-be4d-82e9e79d7551)   |
+| http://127.0.0.1:8000/convert                                  | `files`         | multiple correct files                   | 200           | multiple `.pdf` file                                                           | [Postman](https://lunar-crescent-398747.postman.co/workspace/DocToPdf-Team5-Workspace~f3018eb9-558e-49ae-8204-433ad59feae4/example/17330906-470e8e45-d14d-4982-a20c-69f4ff5d700d)   |
+| http://127.0.0.1:8000/convert                                  | `files`         | null                                     | 400           | { "error": "invalid_files", "error_description": "Files field is empty."}      | [Postman](https://lunar-crescent-398747.postman.co/workspace/DocToPdf-Team5-Workspace~f3018eb9-558e-49ae-8204-433ad59feae4/example/17330906-16d2e64e-2255-4820-8f31-1b05e0d650e8)   |
+| http://127.0.0.1:8000/convert                                  | `files`         | empty file                               | 400           | { "error": "empty_file", "error_description": "Empty file in your request."}   | [Postman](https://lunar-crescent-398747.postman.co/workspace/DocToPdf-Team5-Workspace~f3018eb9-558e-49ae-8204-433ad59feae4/example/17330906-836487d6-8e23-4f86-9f6d-9b2ea33d593c)   |
