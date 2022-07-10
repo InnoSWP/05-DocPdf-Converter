@@ -1,0 +1,1 @@
+web: gunicorn docToPdf.wsgi --log-file -
